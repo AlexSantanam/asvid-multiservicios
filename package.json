@@ -1,0 +1,19 @@
+{
+  "name": "asvid-multiservicios",
+  "version": "1.0.0",
+  "description": "Plataforma Multiservicios de Ingeniería, Obras Civiles y Construcción Asvid SpA",
+  "scripts": {
+    "dev": "npx serve . -p 3006",
+    "start": "npx serve . -p 3006"
+  },
+  "keywords": [
+    "asvid",
+    "multiservicios",
+    "constructora",
+    "obras-civiles",
+    "galpones",
+    "pavimentacion"
+  ],
+  "author": "UNIVERSO693 SpA",
+  "license": "MIT"
+}

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AsviD — Ingeniería, Obras Civiles & Multiservicios de Construcción</title>
+  <meta name="description" content="Ingeniería y Construcción Asvid SpA: Empresa multiservicios en obras civiles, estructuras metálicas, pavimentación, galpones y mantenimiento industrial en Viña del Mar, Valparaíso y Región Central." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            asvid: {
+              orange: '#EA6A1F',
+              'orange-dark': '#C8530E',
+              'orange-light': '#FFF5EE',
+              navy: '#0F1E36',
+              'navy-dark': '#091222',
+              'navy-light': '#1E293B',
+              slate: '#475569',
+              light: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            heading: ['Plus Jakarta Sans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="assets/logo-asvid-clean.png" />
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3, h4, h5, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .badge-stripes {
+      background: repeating-linear-gradient(
+        -45deg,
+        #EA6A1F,
+        #EA6A1F 10px,
+        #0F1E36 10px,
+        #0F1E36 20px
+      );
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-[#EA6A1F] selection:text-white">
+
+  <!-- TOP BAR CORPORATIVA DE ALTA VISIBILIDAD -->
+  <div class="bg-[#0F1E36] text-white text-xs border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap justify-between items-center gap-3">
+      <div class="flex items-center gap-4">
+        <span class="inline-flex items-center gap-1.5 font-bold text-amber-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Ingeniería y Construcción Asvid SpA
+        </span>
+        <span class="hidden md:inline text-white/30">|</span>
+        <span class="hidden md:inline text-slate-300">RUT: 78.521.951-1 · Región de Valparaíso y Zona Central</span>
+      </div>
+      <div class="flex items-center gap-5 text-slate-300">
+        <a href="mailto:contacto.asvid@gmail.com" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-[#EA6A1F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span class="hidden sm:inline">contacto.asvid@gmail.com</span>
+        </a>
+        <a href="https://wa.me/56990387414?text=Hola%20Asvid,%20deseo%20solicitar%20presupuesto%20para%20una%20obra" target="_blank" class="font-extrabold text-[#EA6A1F] hover:text-orange-400 transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.072.043.419-.101.824z"/></svg>
+          <span>+56 9 9038 7414</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR PRINCIPAL CLARA & ELEGANTE -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO ASVID -->
+      <a href="#" class="flex items-center gap-3">
+        <img src="assets/logo-asvid-clean.png" alt="Asvid Ingeniería y Construcción" class="h-12 w-auto object-contain" />
+      </a>
+
+      <!-- MENU NAVEGACIÓN -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-bold text-slate-700">
+        <a href="#inicio" class="hover:text-[#EA6A1F] transition-colors py-2 border-b-2 border-transparent hover:border-[#EA6A1F]">Inicio</a>
+        <a href="#divisiones" class="hover:text-[#EA6A1F] transition-colors py-2 border-b-2 border-transparent hover:border-[#EA6A1F]">Divisiones</a>
+        <a href="#portafolio" class="hover:text-[#EA6A1F] transition-colors py-2 border-b-2 border-transparent hover:border-[#EA6A1F]">Obras & Faenas</a>
+        <a href="#cotizador" class="hover:text-[#EA6A1F] transition-colors py-2 border-b-2 border-transparent hover:border-[#EA6A1F]">Cotizador Express</a>
+        <a href="#maquinaria" class="hover:text-[#EA6A1F] transition-colors py-2 border-b-2 border-transparent hover:border-[#EA6A1F]">Equipamiento</a>
+        <a href="#contacto" class="hover:text-[#EA6A1F] transition-colors py-2 border-b-2 border-transparent hover:border-[#EA6A1F]">Contacto</a>
+      </nav>
+
+      <!-- CTA TELEFONO / WHATSAPP -->
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/56990387414?text=Hola%20Asvid,%20deseo%20solicitar%20presupuesto%20para%20una%20obra" 
+           target="_blank"
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#EA6A1F] hover:bg-[#C8530E] text-white font-extrabold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+          <span>Solicitar Presupuesto</span>
+          <span>→</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HERO SECTION MULTISERVICIO DE ALTO IMPACTO -->
+  <section id="inicio" class="relative bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-white py-16 lg:py-24 overflow-hidden border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Textos & Propuesta de Valor -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-orange-100/70 border border-orange-200 text-xs font-extrabold text-[#C8530E]">
+            <span class="w-2 h-2 rounded-full bg-[#EA6A1F]"></span>
+            EMPRESA MULTISERVICIOS DE INGENIERÍA & CONSTRUCCIÓN
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-[#0F1E36] tracking-tight leading-[1.1]">
+            Soluciones integrales de <span class="text-[#EA6A1F]">obras civiles, estructuras</span> y mantenimiento técnico.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl">
+            Desde la ingeniería conceptual y fundaciones hasta el montaje de galpones y pavimentaciones industriales. Cubrimos todas las etapas de su proyecto con cuadrillas propias y estricto apego a normativa.
+          </p>
+
+          <!-- Tarjetas de 3 Pilares -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div class="p-3.5 bg-white border border-slate-200 rounded-xl shadow-xs">
+              <span class="text-lg">🏗️</span>
+              <strong class="block text-xs font-bold text-[#0F1E36] mt-1">Obras Civiles</strong>
+              <span class="text-[11px] text-slate-500">Hormigón & Fundaciones</span>
+            </div>
+            <div class="p-3.5 bg-white border border-slate-200 rounded-xl shadow-xs">
+              <span class="text-lg">🏭</span>
+              <strong class="block text-xs font-bold text-[#0F1E36] mt-1">Estructuras Metálicas</strong>
+              <span class="text-[11px] text-slate-500">Galpones & Naves</span>
+            </div>
+            <div class="p-3.5 bg-white border border-slate-200 rounded-xl shadow-xs">
+              <span class="text-lg">🚜</span>
+              <strong class="block text-xs font-bold text-[#0F1E36] mt-1">Vialidad & Asfalto</strong>
+              <span class="text-[11px] text-slate-500">Pavimentos & Radieres</span>
+            </div>
+          </div>
+
+          <!-- Botones de Acción -->
+          <div class="pt-4 flex flex-wrap gap-4 items-center">
+            <a href="#cotizador" class="px-7 py-4 rounded-xl bg-[#0F1E36] hover:bg-[#091222] text-white font-extrabold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
+              <span>Calcular Presupuesto Online</span>
+              <span>⚡</span>
+            </a>
+            <a href="#portafolio" class="px-6 py-4 rounded-xl bg-white border-2 border-slate-200 hover:border-[#EA6A1F] text-slate-800 hover:text-[#EA6A1F] font-bold text-sm transition-all shadow-xs">
+              Explorar Obras Ejecutadas ↓
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta de Estado Operativo & Contacto Inmediato -->
+        <div class="lg:col-span-5">
+          <div class="relative bg-white rounded-3xl border-2 border-slate-200 p-6 sm:p-8 shadow-xl">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-xl">
+                  📐
+                </div>
+                <div>
+                  <h3 class="font-extrabold text-slate-900 text-sm">Oficina Técnica Central</h3>
+                  <p class="text-xs text-slate-500">Viña del Mar / Valparaíso</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold border border-emerald-300">
+                FAENAS ACTIVAS
+              </span>
+            </div>
+
+            <!-- Métricas Clave -->
+            <div class="grid grid-cols-2 gap-4 my-6">
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <span class="text-2xl font-black text-[#EA6A1F] block">+10</span>
+                <span class="text-xs font-semibold text-slate-600">Años en el Sector Obras</span>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <span class="text-2xl font-black text-[#0F1E36] block">100%</span>
+                <span class="text-xs font-semibold text-slate-600">Garantía Técnica por Contrato</span>
+              </div>
+            </div>
+
+            <!-- Caja de Llamado Rápido -->
+            <div class="p-4 rounded-2xl bg-[#0F1E36] text-white space-y-3">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-amber-300 uppercase tracking-wider">¿Necesitas Visita Técnica?</span>
+                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-white">24-48 hrs</span>
+              </div>
+              <p class="text-xs text-slate-300">
+                Coordinamos inspección en terreno para cubicación y presupuesto exacto de su obra.
+              </p>
+              <a href="https://wa.me/56990387414?text=Hola%20Asvid,%20solicito%20visita%20t%C3%A9cnica%20a%20faena" target="_blank" class="w-full py-3 rounded-xl bg-[#EA6A1F] hover:bg-orange-600 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md">
+                <span>Coordinar Visita por WhatsApp</span>
+                <span>📱</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN MULTISERVICIO: LAS 4 DIVISIONES OPERATIVAS DE ASVID -->
+  <section id="divisiones" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-extrabold text-[#EA6A1F] uppercase tracking-widest bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+          CAPACIDAD OPERATIVA INTEGRAL
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-[#0F1E36] tracking-tight">
+          Nuestras 4 Divisiones de Multiservicio
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Centralizamos todos los frentes de trabajo de una constructora para evitar subcontrataciones innecesarias, reducir plazos y optimizar su presupuesto.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- DIVISIÓN 1: OBRAS CIVILES -->
+        <div class="bg-slate-50 border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl p-6 transition-all duration-300 shadow-xs hover:shadow-lg flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 text-[#EA6A1F] flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
+              🏢
+            </div>
+            <span class="text-[10px] font-extrabold text-[#EA6A1F] uppercase tracking-wider block">DIVISIÓN 01</span>
+            <h3 class="font-extrabold text-xl text-[#0F1E36]">Obras Civiles & Edificación</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Fundaciones masivas, losas y vigas de hormigón armado, muros de contención estructural, pilotes y muros pantalla para todo tipo de proyectos.
+            </p>
+            <ul class="text-xs text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Hormigonado H-25 a H-35</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Muros de Contención Gavión/HA</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Ensayos de Resistencia Dictuc/IDIC</li>
+            </ul>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-200">
+            <a href="https://wa.me/56990387414?text=Cotizar%20Obras%20Civiles%20Asvid" target="_blank" class="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-[#EA6A1F] hover:text-white hover:border-[#EA6A1F] text-slate-800 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+              <span>Cotizar División</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- DIVISIÓN 2: ESTRUCTURAS METÁLICAS -->
+        <div class="bg-slate-50 border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl p-6 transition-all duration-300 shadow-xs hover:shadow-lg flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 text-[#EA6A1F] flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
+              🏭
+            </div>
+            <span class="text-[10px] font-extrabold text-[#EA6A1F] uppercase tracking-wider block">DIVISIÓN 02</span>
+            <h3 class="font-extrabold text-xl text-[#0F1E36]">Galpones & Naves Metálicas</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Maestranza, ingeniería de detalle, fabricación y montaje de galpones industriales, bodegas logísticas, cobertizos y techumbres con aislación térmica.
+            </p>
+            <ul class="text-xs text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Perfiles A37-24ES & A52-34ES</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Cubiertas PV-4 & Paneles Isopol</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Pintura Intumescente y Epóxica</li>
+            </ul>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-200">
+            <a href="https://wa.me/56990387414?text=Cotizar%20Galpones%20Metálicos%20Asvid" target="_blank" class="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-[#EA6A1F] hover:text-white hover:border-[#EA6A1F] text-slate-800 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+              <span>Cotizar División</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- DIVISIÓN 3: VIALIDAD Y PAVIMENTOS -->
+        <div class="bg-slate-50 border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl p-6 transition-all duration-300 shadow-xs hover:shadow-lg flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 text-[#EA6A1F] flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
+              🚜
+            </div>
+            <span class="text-[10px] font-extrabold text-[#EA6A1F] uppercase tracking-wider block">DIVISIÓN 03</span>
+            <h3 class="font-extrabold text-xl text-[#0F1E36]">Pavimentación & Radieres</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Obras viales de asfalto y hormigón, calzadas de alto tránsito, radieres pulidos al helicóptero con fibra metálica y accesos de faena.
+            </p>
+            <ul class="text-xs text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Radieres Industriales con Helicóptero</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Asfalto en Caliente y Frío</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Soleras, Veredas y Drenajes</li>
+            </ul>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-200">
+            <a href="https://wa.me/56990387414?text=Cotizar%20Pavimentación%20Asvid" target="_blank" class="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-[#EA6A1F] hover:text-white hover:border-[#EA6A1F] text-slate-800 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+              <span>Cotizar División</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- DIVISIÓN 4: MULTISERVICIOS & MANTENCIÓN -->
+        <div class="bg-slate-50 border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl p-6 transition-all duration-300 shadow-xs hover:shadow-lg flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 text-[#EA6A1F] flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
+              🔧
+            </div>
+            <span class="text-[10px] font-extrabold text-[#EA6A1F] uppercase tracking-wider block">DIVISIÓN 04</span>
+            <h3 class="font-extrabold text-xl text-[#0F1E36]">Multiservicios & Mantención</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Habilitación y remodelación de locales comerciales, reparaciones estructurales, impermeabilización de cubiertas y contratos de mantención industrial.
+            </p>
+            <ul class="text-xs text-slate-700 space-y-1.5 pt-2 border-t border-slate-200">
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Remodelaciones Llave en Mano</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Reparaciones y Refuerzos de Vigas</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#EA6A1F] font-bold">✓</span> Movimiento de Tierras & Zanjas</li>
+            </ul>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-200">
+            <a href="https://wa.me/56990387414?text=Cotizar%20Multiservicios%20Asvid" target="_blank" class="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-[#EA6A1F] hover:text-white hover:border-[#EA6A1F] text-slate-800 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+              <span>Cotizar División</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN INTERACTIVA: COTIZADOR EXPRESS DE CUBICACIÓN -->
+  <section id="cotizador" class="py-20 bg-gradient-to-b from-slate-50 to-slate-100 border-t border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white rounded-3xl border-2 border-slate-200 shadow-xl overflow-hidden">
+        
+        <!-- Header del Cotizador -->
+        <div class="bg-[#0F1E36] text-white p-6 sm:p-8 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-amber-300 uppercase tracking-widest block mb-1">HERRAMIENTA EN LÍNEA</span>
+            <h3 class="text-2xl font-black">Cotizador Rápido de Obra</h3>
+            <p class="text-xs text-slate-300 mt-1">Obtén un presupuesto estimado para tu faena y envíalo directo al equipo de Asvid.</p>
+          </div>
+          <div class="text-3xl hidden sm:block">📊</div>
+        </div>
+
+        <form class="p-6 sm:p-8 space-y-6" onsubmit="event.preventDefault(); enviarCotizacionExpress();">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Servicio requerido -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Servicio Requerido *</label>
+              <select id="cot_servicio" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#EA6A1F]">
+                <option value="Galpón Metálico Industrial">Galpón Metálico Industrial</option>
+                <option value="Radier Industrial / Hormigón Pulido">Radier Industrial / Hormigón Pulido</option>
+                <option value="Pavimentación Asfáltica / Hormigón">Pavimentación Asfáltica / Hormigón</option>
+                <option value="Muro de Contención Estructural">Muro de Contención Estructural</option>
+                <option value="Movimiento de Tierras y Excavación">Movimiento de Tierras y Excavación</option>
+                <option value="Habilitación / Remodelación Comercial">Habilitación / Remodelación Comercial</option>
+              </select>
+            </div>
+
+            <!-- Metraje Estimado -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Metros Cuadrados Estimados (m²) *</label>
+              <input id="cot_m2" type="number" required placeholder="ej. 350" min="10" max="50000" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#EA6A1F]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Comuna de Faena -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Comuna de la Faena *</label>
+              <select id="cot_comuna" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#EA6A1F]">
+                <option value="Viña del Mar">Viña del Mar</option>
+                <option value="Concón">Concón</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Quilpué / Villa Alemana">Quilpué / Villa Alemana</option>
+                <option value="Quintero / Puchuncaví">Quintero / Puchuncaví</option>
+                <option value="Limache / Quillota">Limache / Quillota</option>
+                <option value="Otra Comuna">Otra Comuna (Indicar en mensaje)</option>
+              </select>
+            </div>
+
+            <!-- Plazo requerido -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Plazo Esperado de Inicio</label>
+              <select id="cot_plazo" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#EA6A1F]">
+                <option value="Inmediato (menos de 15 días)">Inmediato (menos de 15 días)</option>
+                <option value="Próximo Mes">Próximo Mes</option>
+                <option value="En Etapa de Licitación / Proyecto">En Etapa de Licitación / Proyecto</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Datos de Contacto -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 border-t border-slate-100">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Tu Nombre o Empresa *</label>
+              <input id="cot_nombre" type="text" required placeholder="Nombre de contacto" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#EA6A1F]" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Teléfono WhatsApp *</label>
+              <input id="cot_tel" type="tel" required placeholder="+56 9 1234 5678" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#EA6A1F]" />
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-[#EA6A1F] hover:bg-[#C8530E] text-white font-black text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2">
+            <span>ENVIAR CUBICACIÓN DIRECTA A WHATSAPP</span>
+            <span>📱</span>
+          </button>
+
+          <p class="text-[11px] text-center text-slate-500">
+            Respuesta y estimación formal remitida por un ingeniero civil de Asvid.
+          </p>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN PORTAFOLIO: EXPEDIENTES DE OBRAS REALES -->
+  <section id="portafolio" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-extrabold text-[#EA6A1F] uppercase tracking-widest bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+            REGISTRO DE FAENAS EJECUTADAS
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-black text-[#0F1E36] tracking-tight mt-2">
+            Portafolio de Obras y Proyectos
+          </h2>
+          <p class="text-slate-600 text-sm mt-1 max-w-xl">
+            Inspeccione nuestras obras en ejecución y entregadas con libro de obra y recepciones conformes.
+          </p>
+        </div>
+
+        <!-- Indicador de modo actualizable -->
+        <div class="bg-slate-100 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-2 border border-slate-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>100% Autoadministrable ("Modo Dueño")</span>
+        </div>
+      </div>
+
+      <!-- GRID DE TARJETAS CLARAS DE OBRA -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- PROYECTO 1 -->
+        <div class="bg-white border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 group">
+          <div class="relative h-60 bg-slate-100 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&q=80&w=800" 
+                 alt="Galpón Industrial Concón" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <span class="absolute top-3 left-3 bg-[#0F1E36] text-white text-[10px] font-black px-3 py-1 rounded-md uppercase tracking-wider">
+              ESTRUCTURAS METÁLICAS
+            </span>
+            <span class="absolute bottom-3 right-3 bg-white/95 text-slate-900 font-bold text-xs px-2.5 py-1 rounded shadow">
+              Concón · 1.400 m²
+            </span>
+          </div>
+          <div class="p-6 space-y-3">
+            <h3 class="font-extrabold text-lg text-[#0F1E36] group-hover:text-[#EA6A1F] transition-colors">
+              Galpón Logístico e Industrial
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Montaje de estructura reticulada de acero, radieres de alta resistencia con terminación mecánica y paneles perimetrales PV-4.
+            </p>
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+              <span class="text-slate-500 font-medium">Plazo: 60 días</span>
+              <span class="text-emerald-700 font-bold">✓ Recepción Conforme</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROYECTO 2 -->
+        <div class="bg-white border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 group">
+          <div class="relative h-60 bg-slate-100 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800" 
+                 alt="Pavimentación Viña del Mar" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <span class="absolute top-3 left-3 bg-[#0F1E36] text-white text-[10px] font-black px-3 py-1 rounded-md uppercase tracking-wider">
+              VIALIDAD & PAVIMENTOS
+            </span>
+            <span class="absolute bottom-3 right-3 bg-white/95 text-slate-900 font-bold text-xs px-2.5 py-1 rounded shadow">
+              Viña del Mar · 3.200 m²
+            </span>
+          </div>
+          <div class="p-6 space-y-3">
+            <h3 class="font-extrabold text-lg text-[#0F1E36] group-hover:text-[#EA6A1F] transition-colors">
+              Calzadas y Accesos Habitacionales
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Hormigonado de pavimentos viales, soleras tipo A y B, canalización subterránea y colectores de aguas pluviales.
+            </p>
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+              <span class="text-slate-500 font-medium">Norma Serviu</span>
+              <span class="text-emerald-700 font-bold">✓ Ensayos Aprobados</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROYECTO 3 -->
+        <div class="bg-white border-2 border-slate-200 hover:border-[#EA6A1F] rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 group">
+          <div class="relative h-60 bg-slate-100 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&q=80&w=800" 
+                 alt="Muros de Contención Valparaíso" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <span class="absolute top-3 left-3 bg-[#0F1E36] text-white text-[10px] font-black px-3 py-1 rounded-md uppercase tracking-wider">
+              OBRAS CIVILES
+            </span>
+            <span class="absolute bottom-3 right-3 bg-white/95 text-slate-900 font-bold text-xs px-2.5 py-1 rounded shadow">
+              Valparaíso · 850 m³
+            </span>
+          </div>
+          <div class="p-6 space-y-3">
+            <h3 class="font-extrabold text-lg text-[#0F1E36] group-hover:text-[#EA6A1F] transition-colors">
+              Estabilización de Taludes y Muros
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Cálculo y ejecución de muros de contención en hormigón armado, anclajes y sistemas de drenaje barbacanas en cerros.
+            </p>
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+              <span class="text-slate-500 font-medium">Geotecnia Sísmica</span>
+              <span class="text-emerald-700 font-bold">✓ Inspección OK</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN EQUIPAMIENTO & MAQUINARIA -->
+  <section id="maquinaria" class="py-16 bg-[#0F1E36] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="space-y-3 max-w-xl">
+          <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">INFRAESTRUCTURA Y MAQUINARIA PROPIA</span>
+          <h2 class="text-3xl font-black">Respaldo Mecánico para no detener la faena</h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Contamos con retroexcavadoras, camiones tolva, rodillos compactadores, betoneras de alto rendimiento y equipos láser de nivelación para cumplir los cronogramas al 100%.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full md:w-auto">
+          <div class="bg-white/10 border border-white/10 p-4 rounded-xl text-center">
+            <span class="text-2xl block mb-1">🚜</span>
+            <strong class="text-xs block text-white">Movimiento</strong>
+            <span class="text-[10px] text-slate-300">Retro & Tolvas</span>
+          </div>
+          <div class="bg-white/10 border border-white/10 p-4 rounded-xl text-center">
+            <span class="text-2xl block mb-1">🏗️</span>
+            <strong class="text-xs block text-white">Montaje</strong>
+            <span class="text-[10px] text-slate-300">Camión Pluma</span>
+          </div>
+          <div class="bg-white/10 border border-white/10 p-4 rounded-xl text-center">
+            <span class="text-2xl block mb-1">⚙️</span>
+            <strong class="text-xs block text-white">Hormigón</strong>
+            <span class="text-[10px] text-slate-300">Helicópteros</span>
+          </div>
+          <div class="bg-white/10 border border-white/10 p-4 rounded-xl text-center">
+            <span class="text-2xl block mb-1">📏</span>
+            <strong class="text-xs block text-white">Topografía</strong>
+            <span class="text-[10px] text-slate-300">Estación Láser</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN CONTACTO DIRECTO -->
+  <section id="contacto" class="py-20 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white rounded-3xl border-2 border-slate-200 shadow-xl p-8 sm:p-12">
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <div class="md:col-span-7 space-y-4">
+            <span class="text-xs font-bold text-[#EA6A1F] uppercase tracking-wider">COMUNICACIÓN DIRECTA</span>
+            <h2 class="text-3xl font-black text-[#0F1E36]">Hablemos de su próxima obra o contrato</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Le responderemos con un pre-informe técnico de cubicación o coordinaremos visita de inspección en terreno a la brevedad.
+            </p>
+
+            <div class="space-y-3 pt-2 text-sm">
+              <div class="flex items-center gap-3 text-slate-700">
+                <span class="w-8 h-8 rounded-lg bg-orange-100 text-[#EA6A1F] flex items-center justify-center font-bold">📍</span>
+                <span><strong>Zona de Cobertura:</strong> Viña del Mar, Valparaíso, Concón, Quintero y Región Central.</span>
+              </div>
+              <div class="flex items-center gap-3 text-slate-700">
+                <span class="w-8 h-8 rounded-lg bg-orange-100 text-[#EA6A1F] flex items-center justify-center font-bold">✉️</span>
+                <span><strong>Correo Oficial:</strong> contacto.asvid@gmail.com</span>
+              </div>
+              <div class="flex items-center gap-3 text-slate-700">
+                <span class="w-8 h-8 rounded-lg bg-orange-100 text-[#EA6A1F] flex items-center justify-center font-bold">📞</span>
+                <span><strong>Teléfono & WhatsApp:</strong> +56 9 9038 7414</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-5 flex flex-col gap-3">
+            <a href="https://wa.me/56990387414?text=Hola%20Asvid,%20deseo%20coordinar%20una%20visita%20t%C3%A9cnica" target="_blank" class="w-full py-4 rounded-xl bg-[#EA6A1F] hover:bg-[#C8530E] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all">
+              <span>Hablar por WhatsApp</span>
+              <span>💬</span>
+            </a>
+            <a href="tel:+56990387414" class="w-full py-3.5 rounded-xl bg-[#0F1E36] hover:bg-[#091222] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span>Llamar al +56 9 9038 7414</span>
+              <span>📞</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER CORPORATIVO -->
+  <footer class="bg-white border-t border-slate-200 py-10 text-xs text-slate-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <img src="assets/logo-asvid-clean.png" alt="Asvid SpA" class="h-9 w-auto" />
+        <div>
+          <strong class="text-slate-900 block font-bold">Ingeniería y Construcción Asvid SpA</strong>
+          <span class="text-slate-500">Obras Civiles · Galpones · Pavimentación · Multiservicios</span>
+        </div>
+      </div>
+
+      <div class="text-center sm:text-right space-y-1">
+        <p>Valparaíso / Viña del Mar, Chile &bull; contacto.asvid@gmail.com</p>
+        <p class="text-[11px] text-slate-400">
+          Desarrollado y alojado por <a href="https://universo693.com" target="_blank" class="text-slate-600 hover:text-black font-bold underline">UNIVERSO693 SpA</a>
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE WHATSAPP -->
+  <a href="https://wa.me/56990387414?text=Hola%20Asvid,%20deseo%20cotizar%20un%20proyecto" 
+     target="_blank" 
+     class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-emerald-500 hover:bg-emerald-600 rounded-full flex items-center justify-center text-white text-3xl shadow-2xl hover:scale-110 transition-transform"
+     title="Hablar por WhatsApp con Asvid">
+    💬
+  </a>
+
+  <!-- Script del Cotizador Express -->
+  <script>
+    function enviarCotizacionExpress() {
+      const servicio = document.getElementById('cot_servicio').value;
+      const m2 = document.getElementById('cot_m2').value;
+      const comuna = document.getElementById('cot_comuna').value;
+      const plazo = document.getElementById('cot_plazo').value;
+      const nombre = document.getElementById('cot_nombre').value;
+      const tel = document.getElementById('cot_tel').value;
+
+      const texto = `¡Hola Asvid! Mi nombre es ${nombre} (${tel}). Deseo cotizar:
+- Servicio: ${servicio}
+- Superficie estimada: ${m2} m²
+- Comuna: ${comuna}
+- Plazo requerido: ${plazo}
+Favor contactarme para coordinar visita técnica o pre-presupuesto.`;
+
+      window.open(`https://wa.me/56990387414?text=${encodeURIComponent(texto)}`, '_blank');
+    }
+  </script>
+
+  <!-- Modo Dueño para editar textos y proyectos directamente -->
+  <script src="modo-dueno.js"></script>
+</body>
+</html>
