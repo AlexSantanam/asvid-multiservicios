@@ -68,6 +68,18 @@
       height: 3px;
       background-color: #FF6412;
     }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 38s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
   </style>
 </head>
 <body class="bg-white text-[#2D323C] antialiased selection:bg-[#FF6412] selection:text-white">
@@ -169,6 +181,265 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECCIÓN: CARRUSEL DE CLIENTES, MANDANTES & TERMINALES        -->
+  <!-- ============================================================ -->
+  <section class="py-10 bg-[#F4F5F7] border-y border-[#E2E4E8] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="w-2 h-2 bg-[#FF6412] rounded-full inline-block"></span>
+            <span class="text-[11px] font-bold tracking-widest text-[#FF6412] uppercase">
+              Confianza & Operación en la Región
+            </span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-[#1E2229] font-heading uppercase tracking-wide">
+            Faenas, Mandantes y Terminales Portuarios
+          </h2>
+        </div>
+        <p class="text-xs text-slate-500 max-w-md leading-relaxed">
+          Experiencia operativa en recintos de alta exigencia de seguridad, normas portuarias y contratos de mantenimiento industrial en la Región de Valparaíso y Zona Central.
+        </p>
+      </div>
+    </div>
+
+    <!-- Contenedor del Carrusel con Efecto Fade Lateral -->
+    <div class="relative w-full overflow-hidden">
+      <!-- Sombras laterales para efecto fade -->
+      <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#F4F5F7] to-transparent z-10"></div>
+      <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#F4F5F7] to-transparent z-10"></div>
+
+      <!-- Marquee infinito -->
+      <div class="animate-marquee flex items-center gap-5 py-2">
+        
+        <!-- === ITEM 1: TPS VALPARAÍSO === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#002B49] rounded-xs flex flex-col justify-center items-center text-white p-1">
+              <span class="text-white text-[11px] font-black tracking-wider leading-none">TPS</span>
+              <span class="w-6 h-0.5 bg-[#FF6412] mt-1"></span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#002B49] block leading-tight">TPS VALPARAÍSO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Terminal Pacífico Sur</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 2: PUERTO VALPARAÍSO (EPV) === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#004A8F] rounded-xs flex items-center justify-center text-white">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#004A8F] block leading-tight">PUERTO VALPARAÍSO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Empresa Portuaria EPV</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 3: ENAP REFINERÍA ACONCAGUA === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#C8102E] rounded-xs flex items-center justify-center text-white font-black text-xs">
+              <span>ENAP</span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#C8102E] block leading-tight">ENAP REFINERÍAS</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Refinería Aconcagua Concón</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 4: PUERTO VENTANAS S.A. === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#0C3B5E] rounded-xs flex items-center justify-center text-white">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.2L18 8l-6 3.8L6 8l6-3.8zM6 9.8l5 3.1v6.3l-5-3.1V9.8zm7 9.4v-6.3l5-3.1v6.3l-5 3.1z"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#0C3B5E] block leading-tight">PUERTO VENTANAS S.A.</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Terminal Granelero Quintero</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 5: GNL QUINTERO === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#00857C] rounded-xs flex items-center justify-center text-white font-bold text-xs">
+              <span>GNL</span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#00857C] block leading-tight">GNL QUINTERO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Terminal Marítimo Regasificación</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 6: BODEGAS SAN FRANCISCO === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#E31B23] rounded-xs flex items-center justify-center text-white font-black text-xs">
+              <span>BSF</span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#2D323C] block leading-tight">BODEGAS SAN FRANCISCO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Centros Logísticos Concón</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 7: CODELCO VENTANAS === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#B84518] rounded-xs flex items-center justify-center text-white font-bold text-xs">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#B84518] block leading-tight">CODELCO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">División Ventanas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === ITEM 8: PARQUE INDUSTRIAL CONCÓN === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#1E2229] rounded-xs flex items-center justify-center text-[#FF6412] font-black text-sm">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#1E2229] block leading-tight">PARQUE INDUSTRIAL CONCÓN</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Área Logística & Galpones</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- DUPLICADO EXACTO PARA LOOP CONTINUO INFINITO    -->
+        <!-- ============================================== -->
+
+        <!-- === REPETIDO 1: TPS VALPARAÍSO === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#002B49] rounded-xs flex flex-col justify-center items-center text-white p-1">
+              <span class="text-white text-[11px] font-black tracking-wider leading-none">TPS</span>
+              <span class="w-6 h-0.5 bg-[#FF6412] mt-1"></span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#002B49] block leading-tight">TPS VALPARAÍSO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Terminal Pacífico Sur</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 2: PUERTO VALPARAÍSO (EPV) === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#004A8F] rounded-xs flex items-center justify-center text-white">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#004A8F] block leading-tight">PUERTO VALPARAÍSO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Empresa Portuaria EPV</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 3: ENAP REFINERÍA ACONCAGUA === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#C8102E] rounded-xs flex items-center justify-center text-white font-black text-xs">
+              <span>ENAP</span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#C8102E] block leading-tight">ENAP REFINERÍAS</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Refinería Aconcagua Concón</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 4: PUERTO VENTANAS S.A. === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#0C3B5E] rounded-xs flex items-center justify-center text-white">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.2L18 8l-6 3.8L6 8l6-3.8zM6 9.8l5 3.1v6.3l-5-3.1V9.8zm7 9.4v-6.3l5-3.1v6.3l-5 3.1z"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#0C3B5E] block leading-tight">PUERTO VENTANAS S.A.</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Terminal Granelero Quintero</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 5: GNL QUINTERO === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#00857C] rounded-xs flex items-center justify-center text-white font-bold text-xs">
+              <span>GNL</span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#00857C] block leading-tight">GNL QUINTERO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Terminal Marítimo Regasificación</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 6: BODEGAS SAN FRANCISCO === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#E31B23] rounded-xs flex items-center justify-center text-white font-black text-xs">
+              <span>BSF</span>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#2D323C] block leading-tight">BODEGAS SAN FRANCISCO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Centros Logísticos Concón</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 7: CODELCO VENTANAS === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#B84518] rounded-xs flex items-center justify-center text-white font-bold text-xs">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#B84518] block leading-tight">CODELCO</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">División Ventanas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- === REPETIDO 8: PARQUE INDUSTRIAL CONCÓN === -->
+        <div class="bg-white border border-[#E2E4E8] rounded-xs px-6 py-4 flex items-center justify-center min-w-[250px] h-20 shadow-2xs hover:border-[#FF6412] hover:shadow-md transition-all group shrink-0" aria-hidden="true">
+          <div class="flex items-center gap-3.5 grayscale group-hover:grayscale-0 transition-all opacity-80 group-hover:opacity-100">
+            <div class="w-10 h-10 bg-[#1E2229] rounded-xs flex items-center justify-center text-[#FF6412] font-black text-sm">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <strong class="text-sm font-black tracking-tight text-[#1E2229] block leading-tight">PARQUE INDUSTRIAL CONCÓN</strong>
+              <span class="text-[9px] font-bold text-slate-500 tracking-wider uppercase block">Área Logística & Galpones</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Subtexto Acreditación -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="font-medium">Protocolos y acreditación de personal para ingreso a faenas portuarias, petroquímicas e industriales</span>
+      </div>
+      <span class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Pase el cursor para pausar</span>
+    </div>
   </section>
 
   <!-- SECCIÓN "EMPRESA" (ESTILO CORPORATIVO CHILENO SOBRIO) -->
