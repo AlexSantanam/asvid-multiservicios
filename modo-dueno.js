@@ -1,969 +1,760 @@
-(function () {
-  if (window.__modoDuenoLoaded) return;
-  window.__modoDuenoLoaded = true;
+// ============================================================================
+// PANEL DE AUTOADMINISTRACIÓN ASVID SpA — MODO DUEÑO
+// Desarrollado por UniVerso 693 para Ingeniería y Construcción Asvid SpA
+// Permite al cliente gestionar obras, fotos, datos de contacto y avisos sin programador.
+// ============================================================================
 
+(function () {
+  if (window.__modoDuenoAsvidLoaded) return;
+  window.__modoDuenoAsvidLoaded = true;
+
+  const STORAGE_KEY = 'asvid_dueno_data_v1';
+
+  // Datos base por defecto
+  const DEFAULT_DATA = {
+    contacto: {
+      telefono: '+56 9 9038 7414',
+      whatsapp: '56990387414',
+      email: 'contacto.asvid@gmail.com',
+      direccion: 'Camino Internacional s/n, Concón · Región de Valparaíso',
+      horario: 'Lunes a Viernes de 08:00 a 18:30 hrs'
+    },
+    avisoFaena: {
+      activo: false,
+      texto: 'Atención en terreno activa en Concón, Viña del Mar y Quintero. Recepción de EETT para cubicación inmediata.'
+    },
+    obras: [
+      {
+        id: 'obra-1',
+        categoria: 'Montaje Estructural',
+        titulo: 'Nave Industrial y Centro Logístico',
+        ubicacion: 'Parque Industrial Concón',
+        superficie: '850 m² construidos',
+        alcance: 'Fundaciones, estructura A37 y cubierta PV-4',
+        foto: 'assets/galpones_montaje.jpg'
+      },
+      {
+        id: 'obra-2',
+        categoria: 'Pavimentación',
+        titulo: 'Radier Industrial Alto Tráfico',
+        ubicacion: 'Sector El Salto, Viña del Mar',
+        superficie: '1.200 m² de losa',
+        alcance: 'H-30 afinado con helicóptero mecánico',
+        foto: 'assets/pavimentacion_radier.jpg'
+      },
+      {
+        id: 'obra-3',
+        categoria: 'Obras Civiles',
+        titulo: 'Muro de Contención Estructural',
+        ubicacion: 'Valparaíso Costa',
+        superficie: '65 metros lineales (H=4.5m)',
+        alcance: 'Hormigón armado con drenajes de agua',
+        foto: 'assets/obras_civiles.jpg'
+      }
+    ]
+  };
+
+  // Cargar datos persistidos o iniciales
+  function obtenerDatos() {
+    try {
+      const guardado = localStorage.getItem(STORAGE_KEY);
+      if (guardado) return JSON.parse(guardado);
+    } catch (e) {
+      console.warn('Error leyendo localStorage de Asvid:', e);
+    }
+    return JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }
+
+  function guardarDatos(data) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      aplicarDatosEnPagina(data);
+    } catch (e) {
+      alert('Error guardando en almacenamiento local: ' + e.message);
+    }
+  }
+
+  // Inyectar CSS del Panel de Control
   const style = document.createElement('style');
   style.textContent = `
-    #md-demo-disclaimer {
-      background: linear-gradient(90deg, #78350f, #92400e, #78350f);
-      color: #fef3c7;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    #asvid-banner-aviso {
+      background: #001A4C;
+      color: #ffffff;
       font-size: 11.5px;
-      font-weight: 700;
-      text-align: center;
-      padding: 6px 14px;
-      letter-spacing: 0.15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      z-index: 9989;
-      position: relative;
-      border-bottom: 1px solid #f59e0b;
-    }
-    #md-demo-disclaimer strong {
-      color: #ffffff;
-      background: rgba(0,0,0,0.28);
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 10.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-    #md-promo-banner {
-      background: linear-gradient(90deg, #14532d, #15803d, #14532d);
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 12px;
-      font-weight: 800;
+      font-weight: 600;
       text-align: center;
       padding: 7px 14px;
-      letter-spacing: 0.2px;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      z-index: 9990;
-      position: relative;
-      border-bottom: 2px solid #4ade80;
-    }
-    #md-promo-banner.active {
-      display: flex;
-    }
-    #md-pause-banner {
-      background: #991b1b;
-      color: #fef2f2;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 12px;
-      font-weight: 800;
-      text-align: center;
-      padding: 8px 14px;
+      border-bottom: 2px solid #0056B3;
       display: none;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      z-index: 9991;
       position: relative;
+      z-index: 9980;
     }
-    #md-pause-banner.active {
-      display: flex;
-    }
-    #md-fab {
+    #asvid-banner-aviso.activo { display: flex; }
+
+    #asvid-fab-admin {
       position: fixed;
-      bottom: 18px;
-      left: 18px;
+      bottom: 20px;
+      left: 20px;
       z-index: 9998;
-      background: #0f172a;
+      background: #002469;
       color: #ffffff;
-      border: 2px solid #4ade80;
-      border-radius: 999px;
-      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 6px;
+      padding: 9px 14px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 12px;
-      font-weight: 900;
+      font-size: 11px;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 24px rgba(0, 36, 105, 0.4);
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: transform 0.15s ease, background 0.15s ease;
+      transition: all 0.2s ease;
     }
-    #md-fab:hover {
+    #asvid-fab-admin:hover {
+      background: #001A4C;
       transform: translateY(-2px);
-      background: #1e293b;
+      box-shadow: 0 12px 28px rgba(0, 36, 105, 0.5);
     }
-    #md-fab .md-dot {
-      width: 9px;
-      height: 9px;
+    #asvid-fab-admin .dot-live {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #4ade80;
-      box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.25);
+      background: #22c55e;
     }
-    #md-backdrop {
+
+    #asvid-drawer-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(3px);
+      background: rgba(0, 26, 76, 0.6);
+      backdrop-filter: blur(2px);
       z-index: 9999;
       display: none;
       justify-content: flex-start;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    #md-backdrop.open {
-      display: flex;
-    }
-    #md-drawer {
+    #asvid-drawer-backdrop.abierto { display: flex; }
+
+    #asvid-drawer {
       width: 100%;
-      max-width: 460px;
-      background: #0f172a;
-      color: #f8fafc;
+      max-width: 480px;
+      background: #ffffff;
+      color: #32373C;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border-right: 2px solid #334155;
-      box-shadow: 15px 0 40px rgba(0,0,0,0.45);
+      box-shadow: 10px 0 35px rgba(0,0,0,0.3);
+      border-right: 1px solid #DEE2E6;
       overflow: hidden;
     }
-    .md-head {
-      padding: 14px 16px;
-      background: #14532d;
-      border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+
+    .asvid-head {
+      background: #002469;
+      color: #ffffff;
+      padding: 16px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 10px;
-    }
-    .md-head-title {
-      font-size: 14px;
-      font-weight: 900;
-      color: #ffffff;
-      display: flex;
       align-items: center;
-      gap: 7px;
+      border-bottom: 3px solid #0056B3;
     }
-    .md-head-sub {
-      font-size: 11px;
-      color: #bbf7d0;
-      margin-top: 2px;
-    }
-    .md-close {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      border-radius: 8px;
-      padding: 5px 10px;
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-    .md-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      padding: 8px 12px;
-      background: #090d16;
-      border-bottom: 1px solid #1e293b;
-    }
-    .md-tab-btn {
-      background: #1e293b;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 7px 4px;
-      font-size: 10.5px;
-      font-weight: 800;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s ease;
-    }
-    .md-tab-btn.active {
-      background: #14532d;
-      color: #ffffff;
-      border-color: #4ade80;
-    }
-    .md-body {
-      padding: 14px 16px;
-      overflow-y: auto;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .md-pane {
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .md-pane.active {
-      display: flex;
-    }
-    .md-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-    .md-card-title {
-      font-size: 11px;
-      font-weight: 900;
+    .asvid-head h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #4ade80;
-      margin-bottom: 8px;
+    }
+    .asvid-head p {
+      font-size: 11px;
+      color: #BFDBFE;
+      margin: 2px 0 0 0;
+    }
+    .asvid-close-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .asvid-close-btn:hover { background: rgba(255,255,255,0.3); }
+
+    .asvid-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #F1F3F6;
+      border-bottom: 1px solid #DEE2E6;
+    }
+    .asvid-tab {
+      padding: 10px 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-align: center;
+      color: #6C757D;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+    }
+    .asvid-tab.activo {
+      color: #002469;
+      background: #ffffff;
+      border-bottom-color: #002469;
+    }
+
+    .asvid-content {
+      padding: 18px 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .asvid-pane {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .asvid-pane.activo { display: flex; }
+
+    .asvid-card {
+      background: #F8F9FA;
+      border: 1px solid #DEE2E6;
+      padding: 14px 16px;
+      border-radius: 4px;
+    }
+    .asvid-card-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #002469;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .md-input {
+
+    .asvid-label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #495057;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .asvid-input, .asvid-select, .asvid-textarea {
       width: 100%;
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #ffffff;
-      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #CED4DA;
+      color: #32373C;
+      border-radius: 3px;
       padding: 7px 10px;
       font-size: 12px;
-      font-weight: 600;
+      box-sizing: border-box;
       outline: none;
     }
-    .md-input:focus {
-      border-color: #4ade80;
+    .asvid-input:focus, .asvid-select:focus, .asvid-textarea:focus {
+      border-color: #002469;
     }
-    .md-btn {
-      background: #4ade80;
-      color: #052e16;
+
+    .asvid-btn-primary {
+      background: #002469;
+      color: #ffffff;
       border: none;
-      border-radius: 8px;
-      padding: 7px 12px;
+      border-radius: 3px;
+      padding: 9px 16px;
       font-size: 11px;
-      font-weight: 900;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .md-btn:hover {
-      background: #22c55e;
-    }
-    .md-item-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 8px 0;
-      border-bottom: 1px solid #334155;
-      font-size: 12px;
-    }
-    .md-item-row:last-child {
-      border-bottom: none;
-    }
-    .md-item-name {
-      font-weight: 700;
-      color: #f1f5f9;
-      flex: 1;
-      line-height: 1.25;
-    }
-    .md-price-inp {
-      width: 82px;
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #4ade80;
-      font-weight: 800;
-      font-size: 12px;
-      padding: 5px 7px;
-      border-radius: 6px;
-      text-align: right;
-    }
-    .md-stock-btn {
-      border: none;
-      border-radius: 6px;
-      padding: 5px 8px;
-      font-size: 10px;
-      font-weight: 900;
-      cursor: pointer;
-      min-width: 78px;
-    }
-    .md-stock-on {
-      background: #dcfce7;
-      color: #14532d;
-    }
-    .md-stock-off {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-    .md-kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-    .md-kpi-box {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 10px;
-      padding: 10px;
-    }
-    .md-kpi-lbl {
-      font-size: 10px;
-      color: #94a3b8;
       font-weight: 700;
       text-transform: uppercase;
-    }
-    .md-kpi-val {
-      font-size: 16px;
-      font-weight: 900;
-      color: #f8fafc;
-      margin-top: 2px;
-    }
-    .md-sched-row {
-      display: grid;
-      grid-template-columns: 78px 1fr 1fr 56px;
-      gap: 6px;
-      align-items: center;
-      padding: 5px 0;
-      border-bottom: 1px solid #334155;
-      font-size: 11px;
-    }
-    .md-sched-row:last-child {
-      border-bottom: none;
-    }
-    .md-time-inp {
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #e2e8f0;
-      border-radius: 6px;
-      padding: 4px 6px;
-      font-size: 11px;
-      font-weight: 700;
+      letter-spacing: 0.4px;
+      cursor: pointer;
       width: 100%;
+      transition: background 0.15s ease;
     }
-    .md-foot {
-      padding: 10px 16px;
-      background: #090d16;
-      border-top: 1px solid #1e293b;
-      font-size: 10.5px;
-      color: #94a3b8;
-      line-height: 1.35;
+    .asvid-btn-primary:hover { background: #001A4C; }
+
+    .asvid-btn-danger {
+      background: #DC3545;
+      color: #ffffff;
+      border: none;
+      border-radius: 3px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .asvid-btn-danger:hover { background: #BD2130; }
+
+    .asvid-obra-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #E9ECEF;
+      align-items: center;
+    }
+    .asvid-obra-item:last-child { border-bottom: none; }
+    .asvid-obra-thumb {
+      width: 60px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 3px;
+      border: 1px solid #DEE2E6;
+    }
+
+    .asvid-footer-notice {
+      padding: 12px 20px;
+      background: #F8F9FA;
+      border-top: 1px solid #DEE2E6;
+      font-size: 11px;
+      color: #6C757D;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   `;
   document.head.appendChild(style);
 
-  // Top Demo Disclaimer Bar (para clientes literales)
-  const demoDisclaimer = document.createElement('div');
-  demoDisclaimer.id = 'md-demo-disclaimer';
-  demoDisclaimer.innerHTML = `
-    <strong>🎨 DEMO DE REFERENCIA FUNCIONAL</strong>
-    <span>Tu sitio final será 100% personalizado con tu logo, tus colores, tus fotos reales y la identidad de tu negocio.</span>
+  // Crear Banner de Aviso Superior
+  const bannerAviso = document.createElement('div');
+  bannerAviso.id = 'asvid-banner-aviso';
+  bannerAviso.innerHTML = `
+    <span style="font-weight:800; background:rgba(255,255,255,0.2); padding:2px 8px; border-radius:3px; font-size:10px;">COMUNICADO</span>
+    <span id="asvid-banner-texto"></span>
   `;
-  document.body.prepend(demoDisclaimer);
+  document.body.insertBefore(bannerAviso, document.body.firstChild);
 
-  // Promo & Pause top banners
-  const promoBanner = document.createElement('div');
-  promoBanner.id = 'md-promo-banner';
-  promoBanner.innerHTML = `<span id="md-promo-text">🔥 OFERTA DEL DÍA ACTIVADA DESDE EL PANEL DEL DUEÑO</span>`;
-  document.body.prepend(promoBanner);
-
-  const pauseBanner = document.createElement('div');
-  pauseBanner.id = 'md-pause-banner';
-  pauseBanner.innerHTML = `⏸️ LOCAL EN PAUSA TEMPORAL / COLACIÓN — Volvemos a recibir pedidos en 30 minutos`;
-  document.body.prepend(pauseBanner);
-
-  // Floating Action Button
+  // Crear Botón Flotante (FAB)
   const fab = document.createElement('button');
-  fab.id = 'md-fab';
-  fab.type = 'button';
+  fab.id = 'asvid-fab-admin';
+  fab.title = 'Modo Dueño (Presiona Alt + D)';
   fab.innerHTML = `
-    <span class="md-dot"></span>
-    <span>🔐 Modo Dueño PWA (Productos · Horarios · Ventas)</span>
+    <span class="dot-live"></span>
+    <span>Modo Dueño · AsviD</span>
   `;
-  fab.onclick = () => toggleDrawer(true);
   document.body.appendChild(fab);
 
-  // Drawer Modal
+  // Crear Drawer / Panel Lateral
   const backdrop = document.createElement('div');
-  backdrop.id = 'md-backdrop';
-  backdrop.onclick = (e) => {
-    if (e.target === backdrop) toggleDrawer(false);
-  };
-
+  backdrop.id = 'asvid-drawer-backdrop';
   backdrop.innerHTML = `
-    <div id="md-drawer">
-      <div class="md-head">
+    <div id="asvid-drawer">
+      
+      <!-- Head -->
+      <div class="asvid-head">
         <div>
-          <div class="md-head-title">📲 App Móvil “Modo Dueño” (PWA $0)</div>
-          <div class="md-head-sub">Controla productos, stock, horarios, caja del día y QRs desde tu celular</div>
+          <h3>Panel Dueño AsviD SpA</h3>
+          <p>Autoadministración de Obras, Fotos y Contacto</p>
         </div>
-        <button type="button" class="md-close" id="md-close-btn">✕ Cerrar</button>
+        <button class="asvid-close-btn" id="asvid-close-drawer">✕</button>
       </div>
 
-      <!-- 4 PESTAÑAS DEL MODO ADMIN -->
-      <div class="md-tabs">
-        <button type="button" class="md-tab-btn active" data-tab="productos">📦 Productos</button>
-        <button type="button" class="md-tab-btn" data-tab="ventas">📊 Ventas/Caja</button>
-        <button type="button" class="md-tab-btn" data-tab="horarios">🕒 Horarios</button>
-        <button type="button" class="md-tab-btn" data-tab="qr">📲 QR & App</button>
+      <!-- Tabs -->
+      <div class="asvid-tabs">
+        <button class="asvid-tab activo" data-tab="obras">Obras</button>
+        <button class="asvid-tab" data-tab="contacto">Contacto</button>
+        <button class="asvid-tab" data-tab="aviso">Aviso</button>
+        <button class="asvid-tab" data-tab="respaldo">Bóveda</button>
       </div>
 
-      <div class="md-body">
-        <!-- PESTAÑA 1: PRODUCTOS, PRECIOS Y STOCK -->
-        <div class="md-pane active" id="md-pane-productos">
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>📢 Cintillo de Oferta / Aviso en Vivo</span>
-              <span style="color:#94a3b8;font-weight:600;">Instantáneo</span>
+      <!-- Content -->
+      <div class="asvid-content">
+        
+        <!-- PANE 1: GESTIÓN DE OBRAS -->
+        <div class="asvid-pane activo" id="pane-obras">
+          
+          <div class="asvid-card">
+            <div class="asvid-card-title">
+              <span>Agregar Nueva Obra</span>
+              <span style="font-size:10px; color:#6C757D;">Tiempo Real</span>
             </div>
-            <div style="display:flex;gap:6px;">
-              <input type="text" id="md-inp-promo" class="md-input" value="🔥 HOY: 15% DCTO EN COMPRAS ONLINE · DESPACHO RÁPIDO" />
-              <button type="button" class="md-btn" id="md-btn-promo">Publicar</button>
-            </div>
+            
+            <form id="form-nueva-obra" style="display:flex; flex-direction:column; gap:10px;">
+              <div>
+                <label class="asvid-label">Nombre de la Obra *</label>
+                <input type="text" id="nueva-obra-titulo" required class="asvid-input" placeholder="Ej: Galpón Logístico 900 m²" />
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <label class="asvid-label">Categoría *</label>
+                  <select id="nueva-obra-cat" class="asvid-select">
+                    <option value="Montaje Estructural">Montaje Estructural</option>
+                    <option value="Obras Civiles">Obras Civiles</option>
+                    <option value="Pavimentación">Pavimentación</option>
+                    <option value="Mantenimiento Industrial">Mantenimiento</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="asvid-label">Ubicación / Comuna *</label>
+                  <input type="text" id="nueva-obra-ubicacion" required class="asvid-input" placeholder="Ej: Concón / Viña del Mar" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <label class="asvid-label">Superficie o Dimensión *</label>
+                  <input type="text" id="nueva-obra-superficie" required class="asvid-input" placeholder="Ej: 750 m² construidos" />
+                </div>
+                <div>
+                  <label class="asvid-label">Especificación Técnica</label>
+                  <input type="text" id="nueva-obra-alcance" class="asvid-input" placeholder="Ej: H-30 / Acero A37" />
+                </div>
+              </div>
+
+              <div>
+                <label class="asvid-label">Fotografía de la Obra (Celular o PC) *</label>
+                <input type="file" id="nueva-obra-file" accept="image/*" class="asvid-input" />
+                <span style="font-size:10px; color:#6C757D; margin-top:2px; display:block;">Puedes subir directamente fotos tomadas con tu celular.</span>
+              </div>
+
+              <button type="submit" class="asvid-btn-primary" style="margin-top:6px;">
+                + Publicar Obra en el Sitio Web
+              </button>
+            </form>
           </div>
 
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>➕ Agregar Nuevo Producto / Servicio / Plato</span>
-              <span style="color:#94a3b8;font-weight:600;">En 10 seg</span>
+          <div class="asvid-card">
+            <div class="asvid-card-title">
+              <span>Obras Publicadas Actualmente</span>
+              <span id="contador-obras" style="font-size:11px; color:#002469; font-weight:700;">0</span>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 90px;gap:6px;margin-bottom:6px;">
-              <input type="text" id="md-new-name" class="md-input" placeholder="Nombre (Ej: Promo Familiar / Servicio)" />
-              <input type="number" id="md-new-price" class="md-input" placeholder="$ Precio" step="500" />
-            </div>
-            <div style="display:flex;gap:6px;">
-              <input type="text" id="md-new-cat" class="md-input" placeholder="Categoría o detalle breve (opcional)" />
-              <button type="button" class="md-btn" id="md-btn-add">+ Agregar al Catálogo</button>
-            </div>
+            <div id="lista-obras-admin"></div>
           </div>
 
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>🏷️ Precios y Stock en Tiempo Real</span>
-              <span style="color:#94a3b8;font-weight:600;">Edita o Agota</span>
-            </div>
-            <div id="md-items-container"></div>
+        </div>
+
+        <!-- PANE 2: DATOS DE CONTACTO & WHATSAPP -->
+        <div class="asvid-pane" id="pane-contacto">
+          <div class="asvid-card">
+            <div class="asvid-card-title">Canales Oficiales de AsviD</div>
+            
+            <form id="form-contacto-admin" style="display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <label class="asvid-label">Número de WhatsApp (Sin + ni espacios) *</label>
+                <input type="text" id="adm-whatsapp" class="asvid-input" placeholder="Ej: 56990387414" />
+                <span style="font-size:10px; color:#6C757D; margin-top:2px; display:block;">Aquí llegarán los mensajes de cotización de la web.</span>
+              </div>
+
+              <div>
+                <label class="asvid-label">Teléfono Visible en Pantalla *</label>
+                <input type="text" id="adm-telefono" class="asvid-input" placeholder="Ej: +(56 9) 9038 7414" />
+              </div>
+
+              <div>
+                <label class="asvid-label">Correo Electrónico para Planos & EETT *</label>
+                <input type="email" id="adm-email" class="asvid-input" placeholder="Ej: contacto.asvid@gmail.com" />
+              </div>
+
+              <div>
+                <label class="asvid-label">Dirección de Casa Matriz *</label>
+                <input type="text" id="adm-direccion" class="asvid-input" placeholder="Ej: Camino Internacional s/n, Concón" />
+              </div>
+
+              <button type="submit" class="asvid-btn-primary">
+                Guardar Cambios de Contacto
+              </button>
+            </form>
           </div>
         </div>
 
-        <!-- PESTAÑA 2: CONTROL DE VENTAS Y CAJA DEL DÍA -->
-        <div class="md-pane" id="md-pane-ventas">
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>💰 Resumen de Ventas y Caja de Hoy</span>
-              <span style="color:#4ade80;font-weight:800;">Turno Activo</span>
-            </div>
-            <div class="md-kpi-grid">
-              <div class="md-kpi-box">
-                <div class="md-kpi-lbl">Ventas de Hoy</div>
-                <div class="md-kpi-val" id="md-kpi-total" style="color:#4ade80;">$348.500</div>
-              </div>
-              <div class="md-kpi-box">
-                <div class="md-kpi-lbl">Pedidos / Órdenes</div>
-                <div class="md-kpi-val" id="md-kpi-count">19 completados</div>
-              </div>
-              <div class="md-kpi-box">
-                <div class="md-kpi-lbl">WhatsApp / Salón QR</div>
-                <div class="md-kpi-val" style="font-size:13px;">12 WhatsApp · 7 Local</div>
-              </div>
-              <div class="md-kpi-box">
-                <div class="md-kpi-lbl">Ticket Promedio</div>
-                <div class="md-kpi-val" style="font-size:13px;color:#fbbf24;">$18.342 CLP</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>🧾 Últimos Movimientos / Comandas del Día</span>
-              <button type="button" class="md-btn" id="md-btn-sim-sale" style="padding:3px 8px;font-size:10px;">+ Registrar Venta Manual</button>
-            </div>
-            <div id="md-sales-list" style="display:flex;flex-direction:column;gap:6px;font-size:11.5px;">
-              <div class="md-item-row">
-                <div>
-                  <div style="font-weight:800;color:#fff;">#1049 · Pedido WhatsApp / Web</div>
-                  <div style="font-size:10.5px;color:#94a3b8;">Hace 12 min · Pagado Transferencia</div>
-                </div>
-                <span style="font-weight:900;color:#4ade80;">$24.900</span>
-              </div>
-              <div class="md-item-row">
-                <div>
-                  <div style="font-weight:800;color:#fff;">#1048 · Atención Local / QR</div>
-                  <div style="font-size:10.5px;color:#94a3b8;">Hace 28 min · Débito / Webpay</div>
-                </div>
-                <span style="font-weight:900;color:#4ade80;">$16.500</span>
-              </div>
-              <div class="md-item-row">
-                <div>
-                  <div style="font-weight:800;color:#fff;">#1047 · Pedido WhatsApp</div>
-                  <div style="font-size:10.5px;color:#94a3b8;">Hace 51 min · Efectivo</div>
-                </div>
-                <span style="font-weight:900;color:#4ade80;">$31.000</span>
-              </div>
-            </div>
-            <button type="button" class="md-btn" id="md-btn-export" style="width:100%;margin-top:10px;background:#38bdf8;color:#082f49;">
-              📥 Descargar Cuadratura de Caja del Día (Excel / CSV)
-            </button>
-          </div>
-        </div>
-
-        <!-- PESTAÑA 3: PROGRAMAR HORARIOS Y TURNOS -->
-        <div class="md-pane" id="md-pane-horarios">
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>🚦 Estado Inmediato del Negocio</span>
-              <span id="md-status-lbl" style="color:#4ade80;">🟢 ABIERTO</span>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <button type="button" id="md-btn-open" class="md-btn" style="flex:1;">🟢 Recibiendo Pedidos</button>
-              <button type="button" id="md-btn-pause" class="md-btn" style="flex:1;background:#ef4444;color:#fff;">⏸️ Pausar / Colación</button>
-            </div>
-          </div>
-
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>🗓️ Programar Horario Automático Semanal</span>
-              <span style="color:#94a3b8;font-weight:600;">Abre y cierra solo</span>
-            </div>
-            <div id="md-sched-container">
-              <div class="md-sched-row">
-                <strong style="color:#f8fafc;">Lun a Vie</strong>
-                <input type="time" class="md-time-inp" value="09:00" />
-                <input type="time" class="md-time-inp" value="20:30" />
-                <span style="color:#4ade80;font-weight:800;text-align:right;">Activo</span>
-              </div>
-              <div class="md-sched-row">
-                <strong style="color:#f8fafc;">Sábado</strong>
-                <input type="time" class="md-time-inp" value="10:00" />
-                <input type="time" class="md-time-inp" value="21:30" />
-                <span style="color:#4ade80;font-weight:800;text-align:right;">Activo</span>
-              </div>
-              <div class="md-sched-row">
-                <strong style="color:#f8fafc;">Domingo</strong>
-                <input type="time" class="md-time-inp" value="11:00" />
-                <input type="time" class="md-time-inp" value="17:00" />
-                <span style="color:#fbbf24;font-weight:800;text-align:right;">Medio día</span>
-              </div>
-            </div>
-            <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <label style="font-size:11px;color:#cbd5e1;display:flex;align-items:center;gap:6px;">
-                <input type="checkbox" checked /> Activar modo “Colación” automático (14:30 a 15:15)
-              </label>
-              <button type="button" class="md-btn" id="md-btn-save-sched">Guardar Horario</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- PESTAÑA 4: QR MESAS / MOSTRADOR & APP PWA -->
-        <div class="md-pane" id="md-pane-qr">
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>📱 Instalar como App en tu Celular (PWA)</span>
-              <span style="color:#4ade80;">Sin App Store</span>
-            </div>
-            <p style="font-size:11.5px;color:#cbd5e1;line-height:1.45;margin-bottom:8px;">
-              Tu panel <strong>Modo Dueño</strong> viene configurado como <strong>Aplicación Web Progresiva (PWA)</strong>. Queda con ícono directo en la pantalla de tu teléfono Android o iPhone para abrir tu caja, cambiar precios o pausar pedidos en 2 segundos.
+        <!-- PANE 3: AVISO SUPERIOR DE FAENA -->
+        <div class="asvid-pane" id="pane-aviso">
+          <div class="asvid-card">
+            <div class="asvid-card-title">Cintillo Superior de Anuncio</div>
+            <p style="font-size:11px; color:#555; line-height:1.4; margin-bottom:12px;">
+              Muestra una barra destacada en la parte superior del sitio web para avisos de faena urgente, vacaciones o llamados a licitación.
             </p>
-            <button type="button" class="md-btn" id="md-btn-pwa" style="width:100%;">
-              📲 Simular Instalación de Icono PWA en mi Celular
-            </button>
-          </div>
 
-          <div class="md-card">
-            <div class="md-card-title">
-              <span>🔳 Generador de Código QR (Mesas / Vitrina / Flyers)</span>
-              <span style="color:#fbbf24;">Listo para imprimir</span>
-            </div>
-            <div style="display:flex;gap:12px;align-items:center;">
-              <div style="width:88px;height:88px;background:#fff;border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <img id="md-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://universo693.com/impulsa-pyme" alt="QR" style="width:100%;height:100%;object-fit:contain;" />
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <label class="asvid-label">Texto del Aviso</label>
+                <textarea id="adm-aviso-texto" rows="3" class="asvid-textarea" placeholder="Escribe el mensaje de anuncio..."></textarea>
               </div>
-              <div style="flex:1;">
-                <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;">Identificador de Mesa / Mostrador:</div>
-                <input type="text" id="md-qr-label" class="md-input" value="MESA-01-SALON" style="margin-bottom:6px;" />
-                <button type="button" class="md-btn" id="md-btn-qr" style="width:100%;">🔄 Generar QR para Imprimir</button>
+
+              <div style="display:flex; gap:8px;">
+                <button type="button" id="btn-activar-aviso" class="asvid-btn-primary" style="flex:1;">
+                  Activar Barra
+                </button>
+                <button type="button" id="btn-desactivar-aviso" class="asvid-btn-danger" style="flex:1; padding:9px 12px; font-size:11px;">
+                  Ocultar Barra
+                </button>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- PANE 4: BÓVEDA & RESPALDO -->
+        <div class="asvid-pane" id="pane-respaldo">
+          <div class="asvid-card">
+            <div class="asvid-card-title">Bóveda Digital AsviD</div>
+            <p style="font-size:11px; color:#555; line-height:1.4; margin-bottom:12px;">
+              Como contrataste la Propuesta N° 3 (Venta Directa), eres dueño del código y del contenido. Puedes descargar un archivo con toda tu información en cualquier momento.
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button type="button" id="btn-descargar-json" class="asvid-btn-primary" style="background:#0056B3;">
+                ⬇ Descargar Respaldo Completo (JSON)
+              </button>
+              <button type="button" id="btn-restaurar-fabrica" class="asvid-btn-danger" style="padding:8px 12px; font-size:11px; margin-top:8px;">
+                Restaurar Obras Originales de Fábrica
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="md-foot">
-        💡 <strong>Incluido $0 en todos los planes:</strong> Tu sitio final se entrega 100% personalizado con tu marca y con este panel conectado a tu base de datos para que seas dueño total de tu operación.
+      <!-- Footer Info -->
+      <div class="asvid-footer-notice">
+        <span>UniVerso 693 · Licencia Oficial</span>
+        <span style="font-weight:700; color:#002469;">Modo Dueño Activo</span>
       </div>
+
     </div>
   `;
   document.body.appendChild(backdrop);
 
-  function toggleDrawer(open) {
-    backdrop.classList.toggle('open', open);
-    if (open) renderItemsList();
-  }
+  // Toggle Abrir / Cerrar Drawer
+  function abrirDrawer() { backdrop.classList.add('abierto'); }
+  function cerrarDrawer() { backdrop.classList.remove('abierto'); }
 
-  document.getElementById('md-close-btn').onclick = () => toggleDrawer(false);
+  fab.onclick = abrirDrawer;
+  document.getElementById('asvid-close-drawer').onclick = cerrarDrawer;
+  backdrop.onclick = (e) => { if (e.target === backdrop) cerrarDrawer(); };
 
-  // Tab switching
-  backdrop.querySelectorAll('.md-tab-btn').forEach((btn) => {
+  // Atajo de Teclado Alt + D
+  window.addEventListener('keydown', (e) => {
+    if (e.altKey && (e.key === 'd' || e.key === 'D')) {
+      e.preventDefault();
+      backdrop.classList.toggle('abierto');
+    }
+  });
+
+  // Manejo de Pestañas
+  const tabBtns = backdrop.querySelectorAll('.asvid-tab');
+  tabBtns.forEach(btn => {
     btn.onclick = () => {
-      backdrop.querySelectorAll('.md-tab-btn').forEach((b) => b.classList.remove('active'));
-      backdrop.querySelectorAll('.md-pane').forEach((p) => p.classList.remove('active'));
-      btn.classList.add('active');
-      const tab = btn.getAttribute('data-tab');
-      const pane = document.getElementById('md-pane-' + tab);
-      if (pane) pane.classList.add('active');
+      tabBtns.forEach(b => b.classList.remove('activo'));
+      backdrop.querySelectorAll('.asvid-pane').forEach(p => p.classList.remove('activo'));
+      btn.classList.add('activo');
+      const target = document.getElementById('pane-' + btn.getAttribute('data-tab'));
+      if (target) target.classList.add('activo');
     };
   });
 
-  // Promo Banner action
-  document.getElementById('md-btn-promo').onclick = () => {
-    const val = document.getElementById('md-inp-promo').value.trim();
-    if (val) {
-      document.getElementById('md-promo-text').textContent = val;
-      promoBanner.classList.add('active');
+  // Renderizar las Obras en la Web y en la Lista de Administración
+  function renderizarObras(data) {
+    const contenedorWeb = document.getElementById('contenedor-obras');
+    const listaAdmin = document.getElementById('lista-obras-admin');
+    const contador = document.getElementById('contador-obras');
+
+    if (contador) contador.textContent = data.obras.length + ' obras';
+
+    // 1. Renderizar en el Sitio Web Oficial
+    if (contenedorWeb) {
+      contenedorWeb.innerHTML = data.obras.map((obra) => `
+        <div class="bg-white border border-[#DEE2E6]">
+          <img src="${obra.foto}" alt="${obra.titulo}" class="w-full h-52 object-cover" />
+          <div class="p-6 space-y-3">
+            <span class="text-[11px] font-bold text-[#002469] uppercase tracking-wider block">${obra.categoria}</span>
+            <h3 class="text-base font-bold text-[#32373C] font-heading">${obra.titulo}</h3>
+            
+            <div class="text-xs text-[#555555] space-y-1.5 border-t border-slate-100 pt-3">
+              <p><strong>Ubicación:</strong> ${obra.ubicacion}</p>
+              <p><strong>Superficie:</strong> ${obra.superficie}</p>
+              <p><strong>Alcance:</strong> ${obra.alcance || 'Ejecución integral'}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 2. Renderizar en el Panel Admin
+    if (listaAdmin) {
+      listaAdmin.innerHTML = data.obras.map((obra) => `
+        <div class="asvid-obra-item">
+          <img src="${obra.foto}" alt="" class="asvid-obra-thumb" />
+          <div style="flex:1; min-width:0;">
+            <strong style="display:block; font-size:11.5px; color:#002469; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+              ${obra.titulo}
+            </strong>
+            <span style="font-size:10px; color:#6C757D;">${obra.ubicacion} · ${obra.superficie}</span>
+          </div>
+          <button class="asvid-btn-danger btn-eliminar-obra" data-id="${obra.id}" title="Eliminar obra">
+            ✕
+          </button>
+        </div>
+      `).join('');
+
+      // Asociar eventos eliminar
+      listaAdmin.querySelectorAll('.btn-eliminar-obra').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-id');
+          if (confirm('¿Deseas eliminar esta obra del sitio web?')) {
+            const actual = obtenerDatos();
+            actual.obras = actual.obras.filter(o => o.id !== id);
+            guardarDatos(actual);
+            renderizarObras(actual);
+          }
+        };
+      });
+    }
+  }
+
+  // Aplicar datos generales en la web (Teléfonos, correos, avisos)
+  function aplicarDatosEnPagina(data) {
+    // 1. Obras
+    renderizarObras(data);
+
+    // 2. Banner de Aviso
+    const banner = document.getElementById('asvid-banner-aviso');
+    const txtAviso = document.getElementById('asvid-banner-texto');
+    if (data.avisoFaena && data.avisoFaena.activo && data.avisoFaena.texto) {
+      txtAviso.textContent = data.avisoFaena.texto;
+      banner.classList.add('activo');
     } else {
-      promoBanner.classList.remove('active');
+      banner.classList.remove('activo');
+    }
+
+    // 3. Teléfonos y Enlaces WhatsApp
+    const whatsappNum = data.contacto.whatsapp || '56990387414';
+    const telVisible = data.contacto.telefono || '+(56 9) 9038 7414';
+    const emailVisible = data.contacto.email || 'contacto.asvid@gmail.com';
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(a => {
+      a.href = 'tel:' + telVisible.replace(/[^0-9+]/g, '');
+      const span = a.querySelector('span');
+      if (span && span.textContent.includes('9')) span.textContent = telVisible;
+    });
+
+    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+      const url = new URL(a.href);
+      const textParam = url.searchParams.get('text') || '';
+      a.href = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(textParam)}`;
+    });
+
+    document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+      a.href = 'mailto:' + emailVisible;
+      const span = a.querySelector('span');
+      if (span && span.textContent.includes('@')) span.textContent = emailVisible;
+    });
+  }
+
+  // Cargar formulario con datos iniciales
+  function rellenarFormularioAdmin(data) {
+    document.getElementById('adm-whatsapp').value = data.contacto.whatsapp || '';
+    document.getElementById('adm-telefono').value = data.contacto.telefono || '';
+    document.getElementById('adm-email').value = data.contacto.email || '';
+    document.getElementById('adm-direccion').value = data.contacto.direccion || '';
+    document.getElementById('adm-aviso-texto').value = data.avisoFaena.texto || '';
+  }
+
+  // EVENTO: AGREGAR NUEVA OBRA
+  const formObra = document.getElementById('form-nueva-obra');
+  formObra.onsubmit = function (e) {
+    e.preventDefault();
+    const titulo = document.getElementById('nueva-obra-titulo').value.trim();
+    const categoria = document.getElementById('nueva-obra-cat').value;
+    const ubicacion = document.getElementById('nueva-obra-ubicacion').value.trim();
+    const superficie = document.getElementById('nueva-obra-superficie').value.trim();
+    const alcance = document.getElementById('nueva-obra-alcance').value.trim();
+    const fileInput = document.getElementById('nueva-obra-file');
+
+    function finalizarGuardado(fotoUrl) {
+      const actual = obtenerDatos();
+      const nueva = {
+        id: 'obra-' + Date.now(),
+        titulo,
+        categoria,
+        ubicacion,
+        superficie,
+        alcance,
+        foto: fotoUrl || 'assets/obras_civiles.jpg'
+      };
+      actual.obras.unshift(nueva); // Ponerla de primera
+      guardarDatos(actual);
+      renderizarObras(actual);
+      formObra.reset();
+      alert('¡Obra publicada con éxito en el sitio web!');
+    }
+
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (evt) {
+        finalizarGuardado(evt.target.result);
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    } else {
+      finalizarGuardado('assets/obras_civiles.jpg');
     }
   };
 
-  // Open / Pause status action
-  document.getElementById('md-btn-open').onclick = () => {
-    pauseBanner.classList.remove('active');
-    const lbl = document.getElementById('md-status-lbl');
-    lbl.textContent = '🟢 ABIERTO';
-    lbl.style.color = '#4ade80';
-  };
-  document.getElementById('md-btn-pause').onclick = () => {
-    pauseBanner.classList.add('active');
-    const lbl = document.getElementById('md-status-lbl');
-    lbl.textContent = '⏸️ EN PAUSA';
-    lbl.style.color = '#f87171';
+  // EVENTO: GUARDAR DATOS DE CONTACTO
+  document.getElementById('form-contacto-admin').onsubmit = function (e) {
+    e.preventDefault();
+    const actual = obtenerDatos();
+    actual.contacto.whatsapp = document.getElementById('adm-whatsapp').value.trim().replace(/[^0-9]/g, '');
+    actual.contacto.telefono = document.getElementById('adm-telefono').value.trim();
+    actual.contacto.email = document.getElementById('adm-email').value.trim();
+    actual.contacto.direccion = document.getElementById('adm-direccion').value.trim();
+    guardarDatos(actual);
+    alert('Datos de contacto actualizados correctamente.');
   };
 
-  // Save schedule feedback
-  document.getElementById('md-btn-save-sched').onclick = (e) => {
-    const btn = e.currentTarget;
-    const orig = btn.textContent;
-    btn.textContent = '✓ Horario Guardado';
-    setTimeout(() => {
-      btn.textContent = orig;
-    }, 1800);
+  // EVENTO: ACTIVAR / OCULTAR AVISO
+  document.getElementById('btn-activar-aviso').onclick = function () {
+    const actual = obtenerDatos();
+    const txt = document.getElementById('adm-aviso-texto').value.trim();
+    if (!txt) {
+      alert('Ingresa el texto para el comunicado.');
+      return;
+    }
+    actual.avisoFaena.activo = true;
+    actual.avisoFaena.texto = txt;
+    guardarDatos(actual);
+    alert('Barra de aviso activada en la parte superior.');
   };
 
-  // Simulate manual sale & export CSV
-  let salesTotal = 348500;
-  let salesCount = 19;
-  document.getElementById('md-btn-sim-sale').onclick = () => {
-    const amount = 12900 + Math.floor(Math.random() * 15) * 1000;
-    salesTotal += amount;
-    salesCount += 1;
-    document.getElementById('md-kpi-total').textContent = '$' + salesTotal.toLocaleString('es-CL');
-    document.getElementById('md-kpi-count').textContent = salesCount + ' completados';
-    const list = document.getElementById('md-sales-list');
-    const row = document.createElement('div');
-    row.className = 'md-item-row';
-    row.innerHTML = `
-      <div>
-        <div style="font-weight:800;color:#fff;">#${1030 + salesCount} · Venta Registrada en Caja</div>
-        <div style="font-size:10.5px;color:#4ade80;">Recién · Registro directo Modo Dueño</div>
-      </div>
-      <span style="font-weight:900;color:#4ade80;">$${amount.toLocaleString('es-CL')}</span>
-    `;
-    list.prepend(row);
+  document.getElementById('btn-desactivar-aviso').onclick = function () {
+    const actual = obtenerDatos();
+    actual.avisoFaena.activo = false;
+    guardarDatos(actual);
+    alert('Barra de aviso ocultada.');
   };
 
-  document.getElementById('md-btn-export').onclick = () => {
-    const csv = [
-      'Orden,Canal,Estado,Monto_CLP',
-      '1049,WhatsApp/Web,Pagado,24900',
-      '1048,Salon QR,Pagado,16500',
-      '1047,WhatsApp,Pagado,31000',
-      'TOTAL_DIA,Turno_Actual,Cuadrado,' + salesTotal
-    ].join('\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  // EVENTO: DESCARGAR JSON RESPALDO
+  document.getElementById('btn-descargar-json').onclick = function () {
+    const actual = obtenerDatos();
+    const blob = new Blob([JSON.stringify(actual, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'cuadratura_caja_modo_dueno.csv';
+    a.download = `respaldo_asvid_obras_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
+    URL.revokeObjectURL(url);
   };
 
-  // QR & PWA simulation
-  document.getElementById('md-btn-qr').onclick = () => {
-    const label = document.getElementById('md-qr-label').value.trim() || 'MESA-01';
-    const targetUrl = window.location.origin + window.location.pathname + '?mesa=' + encodeURIComponent(label);
-    document.getElementById('md-qr-img').src =
-      'https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' + encodeURIComponent(targetUrl);
-  };
-
-  document.getElementById('md-btn-pwa').onclick = (e) => {
-    const btn = e.currentTarget;
-    btn.textContent = '✅ ¡Listo! Así se agrega el ícono directo en tu celular';
-    setTimeout(() => {
-      btn.textContent = '📲 Simular Instalación de Icono PWA en mi Celular';
-    }, 2800);
-  };
-
-  // Detect live items in each demo page (including DISHES for Restaurante)
-  function getDemoAdapter() {
-    try {
-      if (typeof DISHES !== 'undefined' && Array.isArray(DISHES)) {
-        return {
-          items: DISHES,
-          getName: (it) => it.name,
-          getPrice: (it) => it.price,
-          setPrice: (it, v) => {
-            it.price = v;
-          },
-          getStock: (it) => !it._agotado,
-          setStock: (it, on) => {
-            it._agotado = !on;
-            if (!on && !it._origName) it._origName = it.name;
-            it.name = on ? it._origName || it.name : '🔴 [AGOTADO] ' + (it._origName || it.name);
-          },
-          addItem: (name, price, cat) => {
-            DISHES.unshift({
-              id: 'd' + Date.now(),
-              cat: cat || 'brasa',
-              name: name,
-              desc: 'Agregado en vivo desde el Panel Modo Dueño.',
-              price: price,
-              badge: 'NUEVO HOY',
-              time: '12 min',
-              img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'
-            });
-          },
-          refresh: () => {
-            if (typeof renderDishes === 'function') renderDishes();
-            if (typeof renderCart === 'function') renderCart();
-          }
-        };
-      }
-      if (typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS)) {
-        return {
-          items: PRODUCTS,
-          getName: (it) => it.name,
-          getPrice: (it) => it.price,
-          setPrice: (it, v) => {
-            it.price = v;
-          },
-          getStock: (it) => (typeof it.stock === 'number' ? it.stock > 0 : !it._agotado),
-          setStock: (it, on) => {
-            if (typeof it.stock === 'number') {
-              it.stock = on ? 10 : 0;
-            } else {
-              it._agotado = !on;
-              if (!on && !it._origName) it._origName = it.name;
-              it.name = on ? it._origName || it.name : '🔴 [AGOTADO] ' + (it._origName || it.name);
-            }
-          },
-          addItem: (name, price, cat) => {
-            PRODUCTS.unshift({
-              id: 'p' + Date.now(),
-              cat: cat || 'ofertas',
-              name: name,
-              unit: 'Unidad · Recién agregado',
-              price: price,
-              oldPrice: Math.round(price * 1.15),
-              stock: 12,
-              badge: 'NUEVO',
-              img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
-            });
-          },
-          refresh: () => {
-            if (typeof renderProducts === 'function') renderProducts();
-            if (typeof renderGrid === 'function') renderGrid();
-            if (typeof updateCartUI === 'function') updateCartUI();
-          }
-        };
-      }
-      if (typeof CATALOG !== 'undefined' && Array.isArray(CATALOG)) {
-        return {
-          items: CATALOG,
-          getName: (it) => it.name,
-          getPrice: (it) => it.price,
-          setPrice: (it, v) => {
-            it.price = v;
-          },
-          getStock: (it) => it.stock > 0,
-          setStock: (it, on) => {
-            it.stock = on ? 8 : 0;
-          },
-          addItem: (name, price, cat) => {
-            CATALOG.unshift({
-              id: 'c' + Date.now(),
-              category: cat || 'destacados',
-              brand: 'COLECCIÓN PROPIA',
-              name: name,
-              price: price,
-              oldPrice: null,
-              stock: 10,
-              rating: '5.0',
-              badge: 'NUEVO',
-              specs: 'Agregado desde Modo Dueño',
-              image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80'
-            });
-          },
-          refresh: () => {
-            if (typeof renderCatalog === 'function') renderCatalog();
-            if (typeof renderCart === 'function') renderCart();
-          }
-        };
-      }
-      if (typeof SERVICES !== 'undefined' && Array.isArray(SERVICES)) {
-        return {
-          items: SERVICES,
-          getName: (it) => it.name,
-          getPrice: (it) => it.priceParticular ?? it.price ?? 0,
-          setPrice: (it, v) => {
-            if ('priceParticular' in it) it.priceParticular = v;
-            if ('priceFonasa' in it) it.priceFonasa = Math.round(v * 0.72);
-            if ('price' in it) it.price = v;
-          },
-          getStock: (it) => !it._agotado,
-          setStock: (it, on) => {
-            it._agotado = !on;
-            if (!on && !it._origName) it._origName = it.name;
-            it.name = on ? it._origName || it.name : '🔴 [SIN CUPO HOY] ' + (it._origName || it.name);
-          },
-          addItem: (name, price) => {
-            SERVICES.unshift({
-              id: 's' + Date.now(),
-              name: name,
-              priceParticular: price,
-              priceFonasa: Math.round(price * 0.75),
-              price: price
-            });
-          },
-          refresh: () => {
-            if (typeof renderServices === 'function') renderServices();
-            if (typeof updateSummary === 'function') updateSummary();
-          }
-        };
-      }
-      if (typeof COURSES !== 'undefined' && Array.isArray(COURSES)) {
-        return {
-          items: COURSES,
-          getName: (it) => it.title || it.name,
-          getPrice: (it) => it.price,
-          setPrice: (it, v) => {
-            it.price = v;
-          },
-          getStock: (it) => !it._agotado,
-          setStock: (it, on) => {
-            it._agotado = !on;
-            if (!on && !it._origTitle) it._origTitle = it.title;
-            it.title = on ? it._origTitle || it.title : '🔴 [CUPOS CERRADOS] ' + (it._origTitle || it.title);
-          },
-          refresh: () => {
-            if (typeof renderCourses === 'function') renderCourses();
-          }
-        };
-      }
-      if (typeof BAYS !== 'undefined' && Array.isArray(BAYS)) {
-        return {
-          items: BAYS,
-          getName: (it) => `${it.patente} · ${it.model}`,
-          getPrice: (it) => it.total,
-          setPrice: (it, v) => {
-            it.total = v;
-          },
-          getStock: (it) => it.stage !== 'LISTO PARA RETIRO ✅',
-          setStock: (it, on) => {
-            it.stage = on ? 'EN REPARACIÓN 🔧' : 'LISTO PARA RETIRO ✅';
-            it.progress = on ? 65 : 100;
-          },
-          refresh: () => {
-            if (typeof renderBays === 'function') renderBays();
-          }
-        };
-      }
-      if (typeof MATERIALS !== 'undefined' && typeof MATERIALS === 'object') {
-        const list = Object.keys(MATERIALS).map((k) => ({ key: k, ...MATERIALS[k] }));
-        return {
-          items: list,
-          getName: (it) => it.label || it.name || it.key,
-          getPrice: (it) => it.ufPerM2,
-          setPrice: (it, v) => {
-            MATERIALS[it.key].ufPerM2 = v;
-          },
-          getStock: (it) => !MATERIALS[it.key]._paused,
-          setStock: (it, on) => {
-            MATERIALS[it.key]._paused = !on;
-          },
-          refresh: () => {
-            if (typeof calcQuote === 'function') calcQuote();
-          }
-        };
-      }
-    } catch (err) {
-      console.warn('Modo Dueño adapter warning:', err);
-    }
-    return null;
-  }
-
-  // Add new item handler
-  document.getElementById('md-btn-add').onclick = () => {
-    const adapter = getDemoAdapter();
-    const nameInp = document.getElementById('md-new-name');
-    const priceInp = document.getElementById('md-new-price');
-    const catInp = document.getElementById('md-new-cat');
-    const name = nameInp.value.trim();
-    const price = Number(priceInp.value) || 9900;
-    const cat = catInp.value.trim();
-    if (!name) {
-      nameInp.focus();
-      return;
-    }
-    if (adapter && typeof adapter.addItem === 'function') {
-      adapter.addItem(name, price, cat);
-      adapter.refresh();
-      nameInp.value = '';
-      priceInp.value = '';
-      catInp.value = '';
-      renderItemsList();
+  // EVENTO: RESTAURAR DE FÁBRICA
+  document.getElementById('btn-restaurar-fabrica').onclick = function () {
+    if (confirm('¿Restaurar las obras y datos a la configuración inicial de AsviD?')) {
+      guardarDatos(DEFAULT_DATA);
+      rellenarFormularioAdmin(DEFAULT_DATA);
+      alert('Configuración de fábrica restablecida.');
     }
   };
 
-  function renderItemsList() {
-    const container = document.getElementById('md-items-container');
-    const adapter = getDemoAdapter();
-    if (!adapter || !adapter.items || !adapter.items.length) {
-      container.innerHTML = `<div style="color:#94a3b8;font-size:12px;">Catálogo sincronizado y listo para editar.</div>`;
-      return;
-    }
+  // Inicializar al cargar
+  const datosIniciales = obtenerDatos();
+  aplicarDatosEnPagina(datosIniciales);
+  rellenarFormularioAdmin(datosIniciales);
 
-    container.innerHTML = '';
-    adapter.items.slice(0, 7).forEach((item) => {
-      const row = document.createElement('div');
-      row.className = 'md-item-row';
-
-      const nameEl = document.createElement('div');
-      nameEl.className = 'md-item-name';
-      nameEl.textContent = adapter.getName(item);
-
-      const priceInp = document.createElement('input');
-      priceInp.type = 'number';
-      priceInp.className = 'md-price-inp';
-      priceInp.value = adapter.getPrice(item);
-      priceInp.step = adapter.getPrice(item) < 200 ? '1' : '500';
-      priceInp.onchange = () => {
-        const val = Number(priceInp.value);
-        if (!isNaN(val) && val >= 0) {
-          adapter.setPrice(item, val);
-          adapter.refresh();
-        }
-      };
-
-      const isAvailable = adapter.getStock(item);
-      const stockBtn = document.createElement('button');
-      stockBtn.type = 'button';
-      stockBtn.className = 'md-stock-btn ' + (isAvailable ? 'md-stock-on' : 'md-stock-off');
-      stockBtn.textContent = isAvailable ? '🟢 En Stock' : '🔴 Agotado';
-      stockBtn.onclick = () => {
-        const nextState = !adapter.getStock(item);
-        adapter.setStock(item, nextState);
-        adapter.refresh();
-        renderItemsList();
-      };
-
-      row.appendChild(nameEl);
-      row.appendChild(priceInp);
-      row.appendChild(stockBtn);
-      container.appendChild(row);
-    });
-  }
 })();
