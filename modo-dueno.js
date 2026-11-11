@@ -11,7 +11,7 @@
       telefono: '+(56 9) 9038 7414',
       whatsapp: '56990387414',
       email: 'contacto.asvid@gmail.com',
-      direccion: 'Camino Internacional s/n, Concón · Región de Valparaíso',
+      direccion: 'Los Diamantes #740 Cs2, Lote 2, Concón · Región de Valparaíso',
       horario: 'Lunes a Viernes de 08:00 a 18:30 hrs'
     },
     avisoFaena: {
