@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Interno — Asvid SpA</title>
+  <meta name="robots" content="noindex, nofollow" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            asvid: {
+              navy: '#002469',
+              'navy-dark': '#001A4C',
+              blue: '#0056B3',
+              gray: '#F8F9FA',
+              border: '#DEE2E6'
+            }
+          },
+          fontFamily: {
+            sans: ['Open Sans', 'Inter', '-apple-system', 'sans-serif'],
+            heading: ['Roboto', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/logo-asvid-clean.png" />
+
+  <style>
+    body { font-family: 'Open Sans', sans-serif; background-color: #F1F3F6; color: #32373C; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Roboto', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen antialiased flex flex-col justify-between">
+
+  <!-- ============================================================ -->
+  <!-- 1. PANTALLA DE ACCESO / LOGIN CON CLAVE                      -->
+  <!-- ============================================================ -->
+  <div id="vista-login" class="flex-1 flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white border border-[#DEE2E6] shadow-xl p-8 sm:p-10">
+      
+      <div class="text-center space-y-4 mb-8">
+        <img src="assets/logo-asvid-clean.png" alt="Asvid" class="h-12 w-auto mx-auto object-contain" />
+        <div>
+          <h1 class="text-lg font-bold text-[#002469] font-heading uppercase tracking-wide">
+            Portal Interno AsviD SpA
+          </h1>
+          <p class="text-xs text-slate-500 mt-1">
+            Sistema de Autoadministración de Obras y Contacto
+          </p>
+        </div>
+      </div>
+
+      <form onsubmit="autenticarUsuario(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Contraseña de Administrador</label>
+          <div class="relative">
+            <input type="password" id="inputClave" required placeholder="Ingrese su clave" class="w-full px-4 py-3 bg-[#F8F9FA] border border-[#DEE2E6] text-xs focus:outline-none focus:border-[#002469] pr-10" />
+            <button type="button" onclick="toggleVerClave()" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-xs">
+              👁
+            </button>
+          </div>
+          <span class="text-[11px] text-slate-400 mt-1 block">Clave inicial: <strong>asvid2026</strong></span>
+        </div>
+
+        <div id="error-login" class="hidden text-xs text-red-600 font-semibold bg-red-50 p-2.5 border border-red-200">
+          Contraseña incorrecta. Intente nuevamente.
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-[#002469] hover:bg-[#001A4C] text-white font-bold text-xs uppercase tracking-wider transition-colors">
+          Ingresar al Panel
+        </button>
+
+        <div class="pt-4 text-center border-t border-slate-100">
+          <a href="index.html" class="text-xs text-slate-500 hover:text-[#002469] font-semibold">
+            ← Volver al Sitio Web Público
+          </a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 2. DASHBOARD DE ADMINISTRACIÓN (VISIBLE TRAS AUTENTICARSE)  -->
+  <!-- ============================================================ -->
+  <div id="vista-dashboard" class="hidden flex-1 flex flex-col">
+    
+    <!-- Topbar del Dashboard -->
+    <header class="bg-[#002469] text-white border-b border-white/10 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <div class="flex items-center gap-4">
+          <img src="assets/logo-asvid-clean.png" alt="Asvid" class="h-8 w-auto brightness-0 invert" />
+          <div class="hidden sm:block">
+            <span class="text-xs font-bold font-heading uppercase tracking-wide block">Portal Interno</span>
+            <span class="text-[10px] text-blue-200">Ingeniería y Construcción Asvid SpA</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 text-xs font-semibold">
+          <a href="index.html" target="_blank" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded transition-colors flex items-center gap-1.5">
+            <span>Ver Sitio Web en Vivo</span>
+            <span>↗</span>
+          </a>
+          <button onclick="cerrarSesion()" class="px-3.5 py-1.5 bg-red-700 hover:bg-red-800 text-white rounded transition-colors">
+            Cerrar Sesión
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Contenedor Principal del Panel -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 space-y-8">
+      
+      <!-- Navegación por Pestañas -->
+      <div class="flex border-b border-[#DEE2E6] bg-white">
+        <button onclick="cambiarPestana('obras')" id="tab-obras" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#002469] border-b-2 border-[#002469]">
+          Obras & Proyectos
+        </button>
+        <button onclick="cambiarPestana('contacto')" id="tab-contacto" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-slate-800">
+          Canales de Contacto
+        </button>
+        <button onclick="cambiarPestana('aviso')" id="tab-aviso" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-slate-800">
+          Comunicado de Faena
+        </button>
+        <button onclick="cambiarPestana('clave')" id="tab-clave" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-slate-800">
+          Seguridad & Clave
+        </button>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- PESTAÑA 1: GESTIÓN DE OBRAS & PROYECTOS        -->
+      <!-- ============================================== -->
+      <div id="seccion-obras" class="seccion-contenido grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Formulario: Agregar Nueva Obra -->
+        <div class="lg:col-span-5 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-3">
+            <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+              + Publicar Nueva Obra
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Aparecerá de inmediato en la galería pública del sitio.
+            </p>
+          </div>
+
+          <form id="formNuevaObra" onsubmit="guardarNuevaObra(event)" class="space-y-3 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 uppercase mb-1">Nombre / Título de la Obra *</label>
+              <input type="text" id="obraTitulo" required placeholder="Ej: Galpón Logístico Concón" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 uppercase mb-1">Línea / Especialidad *</label>
+                <select id="obraCategoria" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]">
+                  <option value="Montaje Estructural">Montaje Estructural</option>
+                  <option value="Obras Civiles">Obras Civiles</option>
+                  <option value="Pavimentación">Pavimentación</option>
+                  <option value="Mantenimiento Industrial">Mantenimiento Industrial</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 uppercase mb-1">Ubicación / Comuna *</label>
+                <input type="text" id="obraUbicacion" required placeholder="Ej: Parque Industrial Concón" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 uppercase mb-1">Superficie o Dimensión *</label>
+                <input type="text" id="obraSuperficie" required placeholder="Ej: 850 m² construidos" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 uppercase mb-1">Alcance / EETT</label>
+                <input type="text" id="obraAlcance" placeholder="Ej: Fundaciones y cubierta PV-4" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 uppercase mb-1">Fotografía de la Obra *</label>
+              <input type="file" id="obraArchivo" accept="image/*" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none" />
+              <span class="text-[11px] text-slate-500 mt-1 block">Puedes tomar la foto directamente con la cámara de tu celular.</span>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-[#002469] hover:bg-[#001A4C] text-white font-bold uppercase tracking-wider transition-colors">
+              + Publicar en el Sitio Web
+            </button>
+          </form>
+        </div>
+
+        <!-- Lista de Obras Publicadas Actualmente -->
+        <div class="lg:col-span-7 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+            <div>
+              <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+                Obras Publicadas en el Sitio
+              </h2>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Puedes eliminar obras antiguas en cualquier momento.
+              </p>
+            </div>
+            <span id="badgeTotalObras" class="px-2.5 py-1 bg-blue-100 text-[#002469] font-bold text-xs rounded">
+              0 Obras
+            </span>
+          </div>
+
+          <div id="listaObrasAdmin" class="space-y-4"></div>
+        </div>
+
+      </div>
+
+      <!-- ============================================== -->
+      <!-- PESTAÑA 2: CANALES DE CONTACTO                 -->
+      <!-- ============================================== -->
+      <div id="seccion-contacto" class="seccion-contenido hidden max-w-2xl bg-white border border-[#DEE2E6] p-8 shadow-xs space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+            Canales Oficiales de Atención
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Cualquier cambio aquí se reflejará automáticamente en todos los botones y enlaces del sitio web.
+          </p>
+        </div>
+
+        <form onsubmit="guardarContactoAdmin(event)" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">WhatsApp para Cotizaciones (Solo números con código de país)</label>
+            <input type="text" id="admWhatsapp" required placeholder="56990387414" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            <span class="text-[11px] text-slate-500 mt-1 block">Ejemplo para Chile: 56990387414</span>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Teléfono Visible en Pantalla</label>
+            <input type="text" id="admTelefono" required placeholder="+(56 9) 9038 7414" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Correo Electrónico para EETT y Planos</label>
+            <input type="email" id="admEmail" required placeholder="contacto.asvid@gmail.com" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Dirección de Casa Matriz</label>
+            <input type="text" id="admDireccion" required placeholder="Camino Internacional s/n, Concón · Región de Valparaíso" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="px-8 py-3 bg-[#002469] hover:bg-[#001A4C] text-white font-bold uppercase tracking-wider text-xs transition-colors">
+              Guardar Cambios de Contacto
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- PESTAÑA 3: COMUNICADO DE FAENA                 -->
+      <!-- ============================================== -->
+      <div id="seccion-aviso" class="seccion-contenido hidden max-w-2xl bg-white border border-[#DEE2E6] p-8 shadow-xs space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+            Cintillo / Comunicado Superior en Faena
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Muestra una barra informativa visible en la parte superior del sitio web público.
+          </p>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Texto del Comunicado</label>
+            <textarea id="admAvisoTexto" rows="3" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" placeholder="Escriba el anuncio..."></textarea>
+          </div>
+
+          <div class="flex gap-4">
+            <button type="button" onclick="activarAviso(true)" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold uppercase tracking-wider text-xs">
+              Activar Cintillo
+            </button>
+            <button type="button" onclick="activarAviso(false)" class="px-6 py-2.5 bg-slate-500 hover:bg-slate-600 text-white font-bold uppercase tracking-wider text-xs">
+              Ocultar Cintillo
+            </button>
+          </div>
+
+          <div id="estadoAvisoLbl" class="text-xs font-semibold text-slate-600 bg-slate-100 p-3 border border-slate-200">
+            Estado actual: Desactivado
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- PESTAÑA 4: SEGURIDAD & CAMBIO DE CLAVE         -->
+      <!-- ============================================== -->
+      <div id="seccion-clave" class="seccion-contenido hidden max-w-xl bg-white border border-[#DEE2E6] p-8 shadow-xs space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+            Seguridad & Clave de Acceso
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Puedes cambiar la contraseña de ingreso al portal cuando lo estimes conveniente.
+          </p>
+        </div>
+
+        <form onsubmit="cambiarClaveAdmin(event)" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Nueva Contraseña</label>
+            <input type="password" id="nuevaClaveInput" required minlength="4" placeholder="Ingrese su nueva clave" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+          </div>
+
+          <button type="submit" class="px-6 py-2.5 bg-[#002469] hover:bg-[#001A4C] text-white font-bold uppercase tracking-wider text-xs">
+            Actualizar Contraseña
+          </button>
+        </form>
+
+        <div class="border-t border-slate-100 pt-6 space-y-3">
+          <h3 class="text-xs font-bold text-slate-700 uppercase">Respaldo Digital (Bóveda)</h3>
+          <p class="text-xs text-slate-500">
+            Descarga un archivo con todos los datos y fotos de tus obras para tu archivo de empresa.
+          </p>
+          <button type="button" onclick="descargarRespaldoJSON()" class="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs rounded">
+            ⬇ Descargar Copia de Seguridad (JSON)
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer del Dashboard -->
+    <footer class="bg-white border-t border-[#DEE2E6] py-4 text-xs text-slate-500 text-center">
+      <p>Asvid Ingeniería y Construcción SpA · Sistema Autoadministrable desarrollado por UniVerso 693</p>
+    </footer>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- LÓGICA JAVASCRIPT DEL PORTAL INTERNO                         -->
+  <!-- ============================================================ -->
+  <script>
+    const STORAGE_KEY = 'asvid_dueno_data_v1';
+    const PASS_KEY = 'asvid_admin_pass_v1';
+    const SESSION_KEY = 'asvid_admin_auth_session';
+
+    const DEFAULT_PASS = 'asvid2026';
+
+    const DEFAULT_DATA = {
+      contacto: {
+        telefono: '+(56 9) 9038 7414',
+        whatsapp: '56990387414',
+        email: 'contacto.asvid@gmail.com',
+        direccion: 'Camino Internacional s/n, Concón · Región de Valparaíso',
+        horario: 'Lunes a Viernes de 08:00 a 18:30 hrs'
+      },
+      avisoFaena: {
+        activo: false,
+        texto: 'Atención en terreno activa en Concón, Viña del Mar y Quintero. Recepción de EETT para cubicación inmediata.'
+      },
+      obras: [
+        {
+          id: 'obra-1',
+          categoria: 'Montaje Estructural',
+          titulo: 'Nave Industrial y Centro Logístico',
+          ubicacion: 'Parque Industrial Concón',
+          superficie: '850 m² construidos',
+          alcance: 'Fundaciones, estructura A37 y cubierta PV-4',
+          foto: 'assets/galpones_montaje.jpg'
+        },
+        {
+          id: 'obra-2',
+          categoria: 'Pavimentación',
+          titulo: 'Radier Industrial Alto Tráfico',
+          ubicacion: 'Sector El Salto, Viña del Mar',
+          superficie: '1.200 m² de losa',
+          alcance: 'H-30 afinado con helicóptero mecánico',
+          foto: 'assets/pavimentacion_radier.jpg'
+        },
+        {
+          id: 'obra-3',
+          categoria: 'Obras Civiles',
+          titulo: 'Muro de Contención Estructural',
+          ubicacion: 'Valparaíso Costa',
+          superficie: '65 metros lineales (H=4.5m)',
+          alcance: 'Hormigón armado con drenajes de agua',
+          foto: 'assets/obras_civiles.jpg'
+        }
+      ]
+    };
+
+    function obtenerData() {
+      try {
+        const guardado = localStorage.getItem(STORAGE_KEY);
+        if (guardado) return JSON.parse(guardado);
+      } catch (e) {
+        console.warn(e);
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+
+    function guardarData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      cargarDatosEnFormularios();
+      renderizarListaObrasAdmin();
+    }
+
+    function obtenerClaveValida() {
+      return localStorage.getItem(PASS_KEY) || DEFAULT_PASS;
+    }
+
+    // Toggle Ver Clave
+    function toggleVerClave() {
+      const inp = document.getElementById('inputClave');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    }
+
+    // Autenticación
+    function autenticarUsuario(e) {
+      e.preventDefault();
+      const ingresada = document.getElementById('inputClave').value.trim();
+      if (ingresada === obtenerClaveValida()) {
+        sessionStorage.setItem(SESSION_KEY, 'true');
+        mostrarDashboard();
+      } else {
+        document.getElementById('error-login').classList.remove('hidden');
+      }
+    }
+
+    function cerrarSesion() {
+      sessionStorage.removeItem(SESSION_KEY);
+      document.getElementById('vista-dashboard').classList.add('hidden');
+      document.getElementById('vista-login').classList.remove('hidden');
+      document.getElementById('inputClave').value = '';
+    }
+
+    function mostrarDashboard() {
+      document.getElementById('vista-login').classList.add('hidden');
+      document.getElementById('vista-dashboard').classList.remove('hidden');
+      cargarDatosEnFormularios();
+      renderizarListaObrasAdmin();
+    }
+
+    // Manejo de Pestañas
+    function cambiarPestana(nombre) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-[#002469]', 'border-[#002469]');
+        btn.classList.add('text-slate-500', 'border-transparent');
+      });
+      document.querySelectorAll('.seccion-contenido').forEach(sec => sec.classList.add('hidden'));
+
+      document.getElementById('tab-' + nombre).classList.add('text-[#002469]', 'border-[#002469]');
+      document.getElementById('tab-' + nombre).classList.remove('text-slate-500', 'border-transparent');
+      document.getElementById('seccion-' + nombre).classList.remove('hidden');
+    }
+
+    // Renderizar Obras
+    function renderizarListaObrasAdmin() {
+      const data = obtenerData();
+      const container = document.getElementById('listaObrasAdmin');
+      document.getElementById('badgeTotalObras').innerText = `${data.obras.length} Obras`;
+
+      if (data.obras.length === 0) {
+        container.innerHTML = '<p class="text-xs text-slate-400 py-4 text-center">No hay obras registradas. Publica una nueva en el formulario izquierdo.</p>';
+        return;
+      }
+
+      container.innerHTML = data.obras.map(obra => `
+        <div class="flex items-center justify-between gap-4 p-4 border border-[#DEE2E6] bg-[#F8F9FA] rounded">
+          <img src="${obra.foto}" class="w-16 h-14 object-cover border border-[#DEE2E6] shrink-0" />
+          <div class="flex-1 min-w-0">
+            <span class="text-[10px] font-bold text-[#002469] uppercase block">${obra.categoria}</span>
+            <strong class="text-xs text-slate-900 block truncate">${obra.titulo}</strong>
+            <span class="text-[11px] text-slate-500 block">${obra.ubicacion} · ${obra.superficie}</span>
+          </div>
+          <button onclick="eliminarObra('${obra.id}')" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded transition-colors shrink-0">
+            Eliminar
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Guardar Nueva Obra
+    function guardarNuevaObra(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('obraTitulo').value.trim();
+      const categoria = document.getElementById('obraCategoria').value;
+      const ubicacion = document.getElementById('obraUbicacion').value.trim();
+      const superficie = document.getElementById('obraSuperficie').value.trim();
+      const alcance = document.getElementById('obraAlcance').value.trim();
+      const fileInput = document.getElementById('obraArchivo');
+
+      function proceder(fotoUrl) {
+        const data = obtenerData();
+        const nueva = {
+          id: 'obra-' + Date.now(),
+          titulo,
+          categoria,
+          ubicacion,
+          superficie,
+          alcance,
+          foto: fotoUrl || 'assets/obras_civiles.jpg'
+        };
+        data.obras.unshift(nueva);
+        guardarData(data);
+        document.getElementById('formNuevaObra').reset();
+        alert('✓ Obra publicada exitosamente en el sitio web.');
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (evt) => proceder(evt.target.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        proceder('assets/obras_civiles.jpg');
+      }
+    }
+
+    function eliminarObra(id) {
+      if (confirm('¿Desea eliminar esta obra del sitio web público?')) {
+        const data = obtenerData();
+        data.obras = data.obras.filter(o => o.id !== id);
+        guardarData(data);
+      }
+    }
+
+    // Cargar datos en formularios
+    function cargarDatosEnFormularios() {
+      const data = obtenerData();
+      document.getElementById('admWhatsapp').value = data.contacto.whatsapp || '';
+      document.getElementById('admTelefono').value = data.contacto.telefono || '';
+      document.getElementById('admEmail').value = data.contacto.email || '';
+      document.getElementById('admDireccion').value = data.contacto.direccion || '';
+      document.getElementById('admAvisoTexto').value = data.avisoFaena.texto || '';
+
+      const lbl = document.getElementById('estadoAvisoLbl');
+      if (data.avisoFaena.activo) {
+        lbl.innerText = 'Estado actual: 🟢 Activo en el sitio web';
+        lbl.className = 'text-xs font-semibold text-emerald-800 bg-emerald-50 p-3 border border-emerald-200';
+      } else {
+        lbl.innerText = 'Estado actual: ⚪ Oculto';
+        lbl.className = 'text-xs font-semibold text-slate-600 bg-slate-100 p-3 border border-slate-200';
+      }
+    }
+
+    // Guardar Contacto
+    function guardarContactoAdmin(e) {
+      e.preventDefault();
+      const data = obtenerData();
+      data.contacto.whatsapp = document.getElementById('admWhatsapp').value.trim().replace(/[^0-9]/g, '');
+      data.contacto.telefono = document.getElementById('admTelefono').value.trim();
+      data.contacto.email = document.getElementById('admEmail').value.trim();
+      data.contacto.direccion = document.getElementById('admDireccion').value.trim();
+      guardarData(data);
+      alert('✓ Canales de contacto actualizados correctamente.');
+    }
+
+    // Activar / Desactivar Aviso
+    function activarAviso(activo) {
+      const data = obtenerData();
+      const txt = document.getElementById('admAvisoTexto').value.trim();
+      if (activo && !txt) {
+        alert('Por favor ingrese el texto del aviso.');
+        return;
+      }
+      data.avisoFaena.activo = activo;
+      data.avisoFaena.texto = txt;
+      guardarData(data);
+      cargarDatosEnFormularios();
+      alert(activo ? '✓ Cintillo de faena activado en la cabecera.' : '✓ Cintillo ocultado.');
+    }
+
+    // Cambiar Clave
+    function cambiarClaveAdmin(e) {
+      e.preventDefault();
+      const nueva = document.getElementById('nuevaClaveInput').value.trim();
+      if (nueva.length < 4) {
+        alert('La clave debe tener al menos 4 caracteres.');
+        return;
+      }
+      localStorage.setItem(PASS_KEY, nueva);
+      document.getElementById('nuevaClaveInput').value = '';
+      alert('✓ Contraseña actualizada correctamente. Úsela en su próximo inicio de sesión.');
+    }
+
+    // Descargar Respaldo JSON
+    function descargarRespaldoJSON() {
+      const data = obtenerData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `respaldo_asvid_obras_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Verificar si ya tiene sesión activa
+    if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+      mostrarDashboard();
+    }
+  </script>
+
+</body>
+</html>
