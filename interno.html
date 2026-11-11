@@ -14,10 +14,15 @@
         extend: {
           colors: {
             asvid: {
-              navy: '#002469',
-              'navy-dark': '#001A4C',
-              blue: '#0056B3',
-              gray: '#F8F9FA',
+              orange: '#FF6412',
+              'orange-dark': '#E0520A',
+              'orange-light': '#FFF3EB',
+              graphite: '#1E2229',
+              'graphite-dark': '#14171C',
+              'graphite-light': '#2D323C',
+              steel: '#4A505D',
+              gray: '#F4F5F7',
+              'gray-light': '#F8F9FA',
               border: '#DEE2E6'
             }
           },
@@ -33,14 +38,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="assets/logo-asvid-clean.png" />
+  <link rel="icon" type="image/png" href="assets/logo-asvid-transparent.png" />
 
   <style>
-    body { font-family: 'Open Sans', sans-serif; background-color: #F1F3F6; color: #32373C; }
+    body { font-family: 'Open Sans', sans-serif; background-color: #F4F5F7; color: #2D323C; }
     h1, h2, h3, h4, .font-heading { font-family: 'Roboto', sans-serif; }
   </style>
 </head>
-<body class="min-h-screen antialiased flex flex-col justify-between">
+<body class="min-h-screen antialiased flex flex-col justify-between selection:bg-[#FF6412] selection:text-white">
 
   <!-- ============================================================ -->
   <!-- 1. PANTALLA DE ACCESO / LOGIN CON CLAVE                      -->
@@ -51,7 +56,7 @@
       <div class="text-center space-y-4 mb-8">
         <img src="assets/logo-asvid-transparent.png" alt="Asvid" class="h-12 w-auto mx-auto object-contain" />
         <div>
-          <h1 class="text-lg font-bold text-[#002469] font-heading uppercase tracking-wide">
+          <h1 class="text-lg font-bold text-[#1E2229] font-heading uppercase tracking-wide">
             Portal Interno AsviD SpA
           </h1>
           <p class="text-xs text-slate-500 mt-1">
@@ -64,7 +69,7 @@
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Contraseña de Administrador</label>
           <div class="relative">
-            <input type="password" id="inputClave" required placeholder="Ingrese su clave" class="w-full px-4 py-3 bg-[#F8F9FA] border border-[#DEE2E6] text-xs focus:outline-none focus:border-[#002469] pr-10" />
+            <input type="password" id="inputClave" required placeholder="Ingrese su clave" class="w-full px-4 py-3 bg-[#F8F9FA] border border-[#DEE2E6] text-xs focus:outline-none focus:border-[#FF6412] pr-10" />
             <button type="button" onclick="toggleVerClave()" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-xs">
               👁
             </button>
@@ -76,12 +81,12 @@
           Contraseña incorrecta. Intente nuevamente.
         </div>
 
-        <button type="submit" class="w-full py-3 bg-[#002469] hover:bg-[#001A4C] text-white font-bold text-xs uppercase tracking-wider transition-colors">
+        <button type="submit" class="w-full py-3 bg-[#1E2229] hover:bg-[#14171C] text-white font-bold text-xs uppercase tracking-wider transition-colors border-b-2 border-[#FF6412]">
           Ingresar al Panel
         </button>
 
         <div class="pt-4 text-center border-t border-slate-100">
-          <a href="index.html" class="text-xs text-slate-500 hover:text-[#002469] font-semibold">
+          <a href="index.html" class="text-xs text-slate-500 hover:text-[#FF6412] font-semibold">
             ← Volver al Sitio Web Público
           </a>
         </div>
@@ -96,19 +101,19 @@
   <div id="vista-dashboard" class="hidden flex-1 flex flex-col">
     
     <!-- Topbar del Dashboard -->
-    <header class="bg-[#002469] text-white border-b border-white/10 sticky top-0 z-40">
+    <header class="bg-[#14171C] text-white border-b border-white/10 sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         <div class="flex items-center gap-4">
-          <img src="assets/logo-asvid-white.png" alt="Asvid" class="h-8 w-auto object-contain" />
+          <img src="assets/logo-asvid-dark-mode.png" alt="Asvid" class="h-8 w-auto object-contain" />
           <div class="hidden sm:block">
             <span class="text-xs font-bold font-heading uppercase tracking-wide block">Portal Interno</span>
-            <span class="text-[10px] text-blue-200">Ingeniería y Construcción Asvid SpA</span>
+            <span class="text-[10px] text-slate-400">Ingeniería y Construcción Asvid SpA</span>
           </div>
         </div>
 
         <div class="flex items-center gap-4 text-xs font-semibold">
-          <a href="index.html" target="_blank" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded transition-colors flex items-center gap-1.5">
+          <a href="index.html" target="_blank" class="px-3.5 py-1.5 bg-white/10 hover:bg-[#FF6412] text-white rounded transition-colors flex items-center gap-1.5">
             <span>Ver Sitio Web en Vivo</span>
             <span>↗</span>
           </a>
@@ -125,7 +130,7 @@
       
       <!-- Navegación por Pestañas -->
       <div class="flex border-b border-[#DEE2E6] bg-white">
-        <button onclick="cambiarPestana('obras')" id="tab-obras" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#002469] border-b-2 border-[#002469]">
+        <button onclick="cambiarPestana('obras')" id="tab-obras" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#FF6412] border-b-2 border-[#FF6412]">
           Obras & Proyectos
         </button>
         <button onclick="cambiarPestana('contacto')" id="tab-contacto" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-slate-800">
@@ -147,7 +152,7 @@
         <!-- Formulario: Agregar Nueva Obra -->
         <div class="lg:col-span-5 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
-            <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+            <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
               + Publicar Nueva Obra
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">
@@ -158,13 +163,13 @@
           <form id="formNuevaObra" onsubmit="guardarNuevaObra(event)" class="space-y-3 text-xs">
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Nombre / Título de la Obra *</label>
-              <input type="text" id="obraTitulo" required placeholder="Ej: Galpón Logístico Concón" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+              <input type="text" id="obraTitulo" required placeholder="Ej: Galpón Logístico Concón" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block font-bold text-slate-700 uppercase mb-1">Línea / Especialidad *</label>
-                <select id="obraCategoria" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]">
+                <select id="obraCategoria" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]">
                   <option value="Montaje Estructural">Montaje Estructural</option>
                   <option value="Obras Civiles">Obras Civiles</option>
                   <option value="Pavimentación">Pavimentación</option>
@@ -173,18 +178,18 @@
               </div>
               <div>
                 <label class="block font-bold text-slate-700 uppercase mb-1">Ubicación / Comuna *</label>
-                <input type="text" id="obraUbicacion" required placeholder="Ej: Parque Industrial Concón" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+                <input type="text" id="obraUbicacion" required placeholder="Ej: Parque Industrial Concón" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block font-bold text-slate-700 uppercase mb-1">Superficie o Dimensión *</label>
-                <input type="text" id="obraSuperficie" required placeholder="Ej: 850 m² construidos" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+                <input type="text" id="obraSuperficie" required placeholder="Ej: 850 m² construidos" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
               </div>
               <div>
                 <label class="block font-bold text-slate-700 uppercase mb-1">Alcance / EETT</label>
-                <input type="text" id="obraAlcance" placeholder="Ej: Fundaciones y cubierta PV-4" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+                <input type="text" id="obraAlcance" placeholder="Ej: Fundaciones y cubierta PV-4" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
               </div>
             </div>
 
@@ -194,7 +199,7 @@
               <span class="text-[11px] text-slate-500 mt-1 block">Puedes tomar la foto directamente con la cámara de tu celular.</span>
             </div>
 
-            <button type="submit" class="w-full py-3 bg-[#002469] hover:bg-[#001A4C] text-white font-bold uppercase tracking-wider transition-colors">
+            <button type="submit" class="w-full py-3 bg-[#FF6412] hover:bg-[#E0520A] text-white font-bold uppercase tracking-wider transition-colors shadow-sm">
               + Publicar en el Sitio Web
             </button>
           </form>
@@ -204,14 +209,14 @@
         <div class="lg:col-span-7 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
             <div>
-              <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+              <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
                 Obras Publicadas en el Sitio
               </h2>
               <p class="text-xs text-slate-500 mt-0.5">
                 Puedes eliminar obras antiguas en cualquier momento.
               </p>
             </div>
-            <span id="badgeTotalObras" class="px-2.5 py-1 bg-blue-100 text-[#002469] font-bold text-xs rounded">
+            <span id="badgeTotalObras" class="px-2.5 py-1 bg-[#FF6412]/10 text-[#FF6412] font-bold text-xs rounded">
               0 Obras
             </span>
           </div>
@@ -226,7 +231,7 @@
       <!-- ============================================== -->
       <div id="seccion-contacto" class="seccion-contenido hidden max-w-2xl bg-white border border-[#DEE2E6] p-8 shadow-xs space-y-6">
         <div class="border-b border-slate-100 pb-3">
-          <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+          <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
             Canales Oficiales de Atención
           </h2>
           <p class="text-xs text-slate-500 mt-0.5">
@@ -237,27 +242,27 @@
         <form onsubmit="guardarContactoAdmin(event)" class="space-y-4 text-xs">
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">WhatsApp para Cotizaciones (Solo números con código de país)</label>
-            <input type="text" id="admWhatsapp" required placeholder="56990387414" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            <input type="text" id="admWhatsapp" required placeholder="56990387414" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
             <span class="text-[11px] text-slate-500 mt-1 block">Ejemplo para Chile: 56990387414</span>
           </div>
 
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Teléfono Visible en Pantalla</label>
-            <input type="text" id="admTelefono" required placeholder="+(56 9) 9038 7414" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            <input type="text" id="admTelefono" required placeholder="+(56 9) 9038 7414" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
           </div>
 
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Correo Electrónico para EETT y Planos</label>
-            <input type="email" id="admEmail" required placeholder="contacto.asvid@gmail.com" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            <input type="email" id="admEmail" required placeholder="contacto.asvid@gmail.com" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
           </div>
 
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Dirección de Casa Matriz</label>
-            <input type="text" id="admDireccion" required placeholder="Camino Internacional s/n, Concón · Región de Valparaíso" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            <input type="text" id="admDireccion" required placeholder="Camino Internacional s/n, Concón · Región de Valparaíso" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
           </div>
 
           <div class="pt-2">
-            <button type="submit" class="px-8 py-3 bg-[#002469] hover:bg-[#001A4C] text-white font-bold uppercase tracking-wider text-xs transition-colors">
+            <button type="submit" class="px-8 py-3 bg-[#1E2229] hover:bg-[#14171C] text-white font-bold uppercase tracking-wider text-xs transition-colors border-b-2 border-[#FF6412]">
               Guardar Cambios de Contacto
             </button>
           </div>
@@ -269,7 +274,7 @@
       <!-- ============================================== -->
       <div id="seccion-aviso" class="seccion-contenido hidden max-w-2xl bg-white border border-[#DEE2E6] p-8 shadow-xs space-y-6">
         <div class="border-b border-slate-100 pb-3">
-          <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+          <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
             Cintillo / Comunicado Superior en Faena
           </h2>
           <p class="text-xs text-slate-500 mt-0.5">
@@ -280,11 +285,11 @@
         <div class="space-y-4 text-xs">
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Texto del Comunicado</label>
-            <textarea id="admAvisoTexto" rows="3" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" placeholder="Escriba el anuncio..."></textarea>
+            <textarea id="admAvisoTexto" rows="3" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" placeholder="Escriba el anuncio..."></textarea>
           </div>
 
           <div class="flex gap-4">
-            <button type="button" onclick="activarAviso(true)" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold uppercase tracking-wider text-xs">
+            <button type="button" onclick="activarAviso(true)" class="px-6 py-2.5 bg-[#FF6412] hover:bg-[#E0520A] text-white font-bold uppercase tracking-wider text-xs">
               Activar Cintillo
             </button>
             <button type="button" onclick="activarAviso(false)" class="px-6 py-2.5 bg-slate-500 hover:bg-slate-600 text-white font-bold uppercase tracking-wider text-xs">
@@ -303,7 +308,7 @@
       <!-- ============================================== -->
       <div id="seccion-clave" class="seccion-contenido hidden max-w-xl bg-white border border-[#DEE2E6] p-8 shadow-xs space-y-6">
         <div class="border-b border-slate-100 pb-3">
-          <h2 class="text-sm font-bold text-[#002469] uppercase font-heading">
+          <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
             Seguridad & Clave de Acceso
           </h2>
           <p class="text-xs text-slate-500 mt-0.5">
@@ -314,10 +319,10 @@
         <form onsubmit="cambiarClaveAdmin(event)" class="space-y-4 text-xs">
           <div>
             <label class="block font-bold text-slate-700 uppercase mb-1">Nueva Contraseña</label>
-            <input type="password" id="nuevaClaveInput" required minlength="4" placeholder="Ingrese su nueva clave" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#002469]" />
+            <input type="password" id="nuevaClaveInput" required minlength="4" placeholder="Ingrese su nueva clave" class="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
           </div>
 
-          <button type="submit" class="px-6 py-2.5 bg-[#002469] hover:bg-[#001A4C] text-white font-bold uppercase tracking-wider text-xs">
+          <button type="submit" class="px-6 py-2.5 bg-[#1E2229] hover:bg-[#14171C] text-white font-bold uppercase tracking-wider text-xs border-b-2 border-[#FF6412]">
             Actualizar Contraseña
           </button>
         </form>
@@ -450,12 +455,12 @@
     // Manejo de Pestañas
     function cambiarPestana(nombre) {
       document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('text-[#002469]', 'border-[#002469]');
+        btn.classList.remove('text-[#FF6412]', 'border-[#FF6412]');
         btn.classList.add('text-slate-500', 'border-transparent');
       });
       document.querySelectorAll('.seccion-contenido').forEach(sec => sec.classList.add('hidden'));
 
-      document.getElementById('tab-' + nombre).classList.add('text-[#002469]', 'border-[#002469]');
+      document.getElementById('tab-' + nombre).classList.add('text-[#FF6412]', 'border-[#FF6412]');
       document.getElementById('tab-' + nombre).classList.remove('text-slate-500', 'border-transparent');
       document.getElementById('seccion-' + nombre).classList.remove('hidden');
     }
@@ -475,7 +480,7 @@
         <div class="flex items-center justify-between gap-4 p-4 border border-[#DEE2E6] bg-[#F8F9FA] rounded">
           <img src="${obra.foto}" class="w-16 h-14 object-cover border border-[#DEE2E6] shrink-0" />
           <div class="flex-1 min-w-0">
-            <span class="text-[10px] font-bold text-[#002469] uppercase block">${obra.categoria}</span>
+            <span class="text-[10px] font-bold text-[#FF6412] uppercase block">${obra.categoria}</span>
             <strong class="text-xs text-slate-900 block truncate">${obra.titulo}</strong>
             <span class="text-[11px] text-slate-500 block">${obra.ubicacion} · ${obra.superficie}</span>
           </div>

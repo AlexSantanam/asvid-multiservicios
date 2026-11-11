@@ -89,7 +89,7 @@
         <div class="bg-white border border-[#DEE2E6]">
           <img src="${obra.foto}" alt="${obra.titulo}" class="w-full h-52 object-cover" />
           <div class="p-6 space-y-3">
-            <span class="text-[11px] font-bold text-[#002469] uppercase tracking-wider block">${obra.categoria}</span>
+            <span class="text-[11px] font-bold text-[#FF6412] uppercase tracking-wider block">${obra.categoria}</span>
             <h3 class="text-base font-bold text-[#32373C] font-heading">${obra.titulo}</h3>
             
             <div class="text-xs text-[#555555] space-y-1.5 border-t border-slate-100 pt-3">
