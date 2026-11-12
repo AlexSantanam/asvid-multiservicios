@@ -8,8 +8,8 @@
 
   const DEFAULT_DATA = {
     contacto: {
-      telefono: '+(56 9) 9038 7414',
-      whatsapp: '56990387414',
+      telefono: '+(56 9) 4419 4618',
+      whatsapp: '56944194618',
       email: 'contacto.asvid@gmail.com',
       direccion: 'Los Diamantes #740 Cs2, Lote 2, Concón · Región de Valparaíso',
       horario: 'Lunes a Viernes de 08:00 a 18:30 hrs'
@@ -103,8 +103,8 @@
     }
 
     // 3. Teléfonos y Enlaces WhatsApp
-    const whatsappNum = data.contacto.whatsapp || '56990387414';
-    const telVisible = data.contacto.telefono || '+(56 9) 9038 7414';
+    const whatsappNum = data.contacto.whatsapp || '56944194618';
+    const telVisible = data.contacto.telefono || '+(56 9) 4419 4618';
     const emailVisible = data.contacto.email || 'contacto.asvid@gmail.com';
 
     document.querySelectorAll('a[href^="tel:"]').forEach(a => {
