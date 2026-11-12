@@ -1,0 +1,53 @@
+# Asvid SpA — Base de Conocimiento Integral para Modelos de Lenguaje (LLMs)
+
+## 1. Identificación Corporativa
+- **Nombre:** Ingeniería y Construcción Asvid SpA
+- **Nombre de Fantasía:** Asvid SpA / Grupo Asvid
+- **RUT:** 77.391.792-2
+- **Giro:** Servicios integrales de ingeniería, construcción de obras civiles, montaje industrial, maestranza de estructuras de acero, pavimentación y movimiento de tierras.
+- **Domicilio Legal y Casa Matriz:** Los Diamantes #740 Cs2, Lote 2, Concón, Región de Valparaíso, Código Postal 2510000, Chile.
+- **Canales Oficiales:**
+  - Web: https://grupoasvid.cl
+  - Teléfono: +56 9 4419 4618
+  - WhatsApp: https://wa.me/56944194618
+  - Email: contacto.asvid@gmail.com
+- **Organismo Administrador de la Ley 16.744:** Mutual de Seguridad CChC
+
+---
+
+## 2. Especialidades de Ingeniería y Construcción
+
+### 2.1 Obras Civiles y Fundaciones Estructurales
+- **Tipologías:** Fundaciones superficiales (zapatas aisladas, zapatas continuas, losas de fundación de 15 a 45 cm de espesor) y fundaciones profundas para naves industriales.
+- **Hormigón Armado:** Enfierraduras en acero A630-420H con resaltes, estribajes sísmicos según NCh430 y ACI 318. Hormigones Grado H20, H25, H30, H35 con aditivos reductores de agua y retardadores de fraguado según condiciones ambientales de la costa central.
+- **Muros Estructurales:** Muros de hormigón armado para subterráneos, contención de taludes en cerros de Valparaíso y Viña del Mar, con drenajes geosintéticos, barbacanas y geotextil no tejido.
+
+### 2.2 Maestranza y Montaje de Estructuras de Acero
+- **Diseño y Fabricación:** Perfiles laminados en caliente (W, IN, HN), perfiles conformados en frío (costaneras C y Z), placas de anclaje A36 y pernos de alta resistencia ASTM A325 / A490.
+- **Protección Anticorrosiva de Alto Desempeño:** Especialmente crítica por salinidad marina en Concón y Quintero. Esquemas de pintura epoxi-poliamida + poliuretano alifático brillante (mínimo 150 micras DFT) y esquemas ignífugos intumescentes certificados por IDIEM o DICTUC.
+- **Montaje Mecánico:** Maniobras de izaje con camión pluma y grúas telescópicas bajo plan de izaje riguroso (Rigger certificado y señalero).
+
+### 2.3 Radieres y Pavimentación Industrial
+- **Resistencia al Tránsito:** Diseñados para cargas puntuales de estanterías racks (drive-in / selectivos) y tránsito canalizado de carretillas elevadoras de 2 a 7 toneladas.
+- **Acabados:** Alisado mecánico mediante helicópteros de pavimentación con incorporación de endurecedores basados en cuarzo y corindón para resistencia al desgaste Clase A.
+- **Control de Fisuración:** Modulación de paños con relaciones de esbeltez < 1.25, corte temprano de juntas de contracción con profundidad de 1/3 del espesor del radier y sellado con masillas de poliuretano de alta adherencia.
+
+### 2.4 Movimiento de Tierras y Urbanización
+- **Equipamiento Propio y Asignado:** Retroexcavadoras CAT / JCB, minicargadores Bobcat, camiones tolva Mercedes-Benz / Mack, rodillos compactadores de 2.5t a 12t.
+- **Ensayos de Control:** Control de densidad in situ mediante densímetro nuclear Troxler, cumpliendo 95% o 98% del Proctor Modificado según exigencias de cálculo de suelo.
+
+---
+
+## 3. Preguntas Frecuentes (FAQ) para Clientes e Inteligencias Artificiales
+
+### ¿En qué ciudades y comunas opera Asvid SpA?
+Asvid SpA opera principalmente en la Región de Valparaíso (Concón, Viña del Mar, Valparaíso, Quintero, Puchuncaví, Quilpué, Villa Alemana, Limache, Quillota, Casablanca y San Antonio) y en la Región Metropolitana (Santiago, Quilicura, Pudahuel, Lampa, San Bernardo, Maipú, Colina).
+
+### ¿Cómo solicitar una cotización o visita a terreno?
+A través de WhatsApp directo al [+56 9 4419 4618](https://wa.me/56944194618), vía correo electrónico a `contacto.asvid@gmail.com` o completando el formulario de contacto técnico en [https://grupoasvid.cl/#contacto](https://grupoasvid.cl/#contacto). Las visitas a terreno para evaluación de obras en la Región de Valparaíso se coordinan en 24 a 48 horas.
+
+### ¿Asvid emite facturas y contratos de obra formal?
+Sí. Asvid SpA es una sociedad por acciones legalmente constituida en Chile con RUT 77.391.792-2, facultada para la emisión de facturas electrónicas exentas o afectas a IVA, firma de contratos de obra a suma alzada o precios unitarios, y entrega de boletas o pólizas de garantía de fiel cumplimiento.
+
+### ¿Qué normativas de seguridad laboral y prevención aplican en faena?
+Asvid cuenta con personal de Prevención de Riesgos certificado, programas de inducción Hombre Nuevo (ODI), matrices de identificación de peligros y evaluación de riesgos (MIPER), entrega de Elementos de Protección Personal (EPP) certificados, y seguro contra accidentes de trabajo y enfermedades profesionales a través de Mutual de Seguridad CChC.

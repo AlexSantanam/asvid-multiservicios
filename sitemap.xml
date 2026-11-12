@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Página Principal / Portada Oficial -->
+  <url>
+    <loc>https://grupoasvid.cl/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Servicios Especializados de Ingeniería y Construcción -->
+  <url>
+    <loc>https://grupoasvid.cl/#servicios</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Obras Civiles y Montajes Realizados -->
+  <url>
+    <loc>https://grupoasvid.cl/#obras</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Nuestra Empresa & Trayectoria Técnica -->
+  <url>
+    <loc>https://grupoasvid.cl/#empresa</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Certificaciones, Calidad y Prevención de Riesgos -->
+  <url>
+    <loc>https://grupoasvid.cl/#certificaciones</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Cotizaciones y Contacto Directo de Faena -->
+  <url>
+    <loc>https://grupoasvid.cl/#contacto</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

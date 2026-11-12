@@ -1,0 +1,33 @@
+# Robots.txt oficial de Asvid SpA (grupoasvid.cl)
+# Permitir indexación completa a motores de búsqueda y motores de IA
+
+User-agent: *
+Allow: /
+Disallow: /interno.html
+Disallow: /api/
+
+# Rastreadores de Inteligencia Artificial (ChatGPT, Claude, Perplexity, Gemini)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap oficial
+Sitemap: https://grupoasvid.cl/sitemap.xml
+Host: https://grupoasvid.cl
