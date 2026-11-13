@@ -120,12 +120,20 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-4 text-xs font-semibold">
-          <a href="index.html" target="_blank" class="px-3.5 py-1.5 bg-white/10 hover:bg-[#FF6412] text-white rounded transition-colors flex items-center gap-1.5">
-            <span>Ver Sitio Web en Vivo</span>
+        <div class="flex flex-wrap items-center gap-2.5 text-xs font-semibold">
+          <button onclick="enfocarNuevaObra()" class="px-3 py-1.5 bg-[#FF6412] hover:bg-[#E0520A] text-white rounded transition-colors flex items-center gap-1.5 shadow-xs font-bold uppercase tracking-wider">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Agregar Obra</span>
+          </button>
+          <button onclick="enfocarNuevoServicio()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded transition-colors border border-white/20 flex items-center gap-1.5 font-bold uppercase tracking-wider">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Agregar Servicio</span>
+          </button>
+          <a href="index.html" target="_blank" class="px-3 py-1.5 bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white rounded transition-colors flex items-center gap-1">
+            <span>Ver Sitio Web</span>
             <span>↗</span>
           </a>
-          <button onclick="cerrarSesion()" class="px-3.5 py-1.5 bg-red-700 hover:bg-red-800 text-white rounded transition-colors">
+          <button onclick="cerrarSesion()" class="px-3 py-1.5 bg-red-700/90 hover:bg-red-700 text-white rounded transition-colors">
             Cerrar Sesión
           </button>
         </div>
@@ -137,9 +145,12 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 space-y-8">
       
       <!-- Navegación por Pestañas -->
-      <div class="flex border-b border-[#DEE2E6] bg-white">
+      <div class="flex flex-wrap border-b border-[#DEE2E6] bg-white">
         <button onclick="cambiarPestana('obras')" id="tab-obras" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#FF6412] border-b-2 border-[#FF6412]">
           Obras & Proyectos
+        </button>
+        <button onclick="cambiarPestana('servicios')" id="tab-servicios" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-slate-800">
+          Servicios & Especialidades
         </button>
         <button onclick="cambiarPestana('contacto')" id="tab-contacto" class="tab-btn px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-slate-800">
           Canales de Contacto
@@ -160,8 +171,8 @@
         <!-- Formulario: Agregar Nueva Obra -->
         <div class="lg:col-span-5 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
-            <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
-              + Publicar Nueva Obra
+            <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading flex items-center gap-1.5">
+              <span class="text-[#FF6412]">+</span> Publicar Nueva Obra
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">
               Aparecerá de inmediato en la galería pública del sitio.
@@ -204,7 +215,7 @@
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Fotografía de la Obra *</label>
               <input type="file" id="obraArchivo" accept="image/*" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none" />
-              <span class="text-[11px] text-slate-500 mt-1 block">Puedes tomar la foto directamente con la cámara de tu celular.</span>
+              <span class="text-[11px] text-slate-500 mt-1 block">Puedes tomar la foto directamente con la cámara de tu celular o subir un archivo.</span>
             </div>
 
             <button type="submit" class="w-full py-3 bg-[#FF6412] hover:bg-[#E0520A] text-white font-bold uppercase tracking-wider transition-colors shadow-sm">
@@ -215,21 +226,104 @@
 
         <!-- Lista de Obras Publicadas Actualmente -->
         <div class="lg:col-span-7 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
-          <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+          <div class="border-b border-slate-100 pb-3 flex flex-wrap justify-between items-center gap-3">
             <div>
               <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
                 Obras Publicadas en el Sitio
               </h2>
               <p class="text-xs text-slate-500 mt-0.5">
-                Puedes eliminar obras antiguas en cualquier momento.
+                Puedes eliminar obras antiguas o agregar nuevas en cualquier momento.
               </p>
             </div>
-            <span id="badgeTotalObras" class="px-2.5 py-1 bg-[#FF6412]/10 text-[#FF6412] font-bold text-xs rounded">
-              0 Obras
-            </span>
+            <div class="flex items-center gap-2.5">
+              <span id="badgeTotalObras" class="px-2.5 py-1 bg-[#FF6412]/10 text-[#FF6412] font-bold text-xs rounded">
+                0 Obras
+              </span>
+              <button type="button" onclick="enfocarNuevaObra()" class="px-3 py-1.5 bg-[#FF6412] hover:bg-[#E0520A] text-white font-bold text-xs uppercase tracking-wider rounded transition-colors flex items-center gap-1.5 shadow-xs">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                <span>+ Agregar Obra</span>
+              </button>
+            </div>
           </div>
 
           <div id="listaObrasAdmin" class="space-y-4"></div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================= -->
+      <!-- PESTAÑA: GESTIÓN DE SERVICIOS & ESPECIALIDADES          -->
+      <!-- ======================================================= -->
+      <div id="seccion-servicios" class="seccion-contenido hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Formulario: Agregar Nuevo Servicio -->
+        <div class="lg:col-span-5 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-3">
+            <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading flex items-center gap-1.5">
+              <span class="text-[#FF6412]">+</span> Publicar Nuevo Servicio
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Aparecerá en la sección de Servicios Especializados del sitio web.
+            </p>
+          </div>
+
+          <form id="formNuevoServicio" onsubmit="guardarNuevoServicio(event)" class="space-y-3 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 uppercase mb-1">Título del Servicio / Especialidad *</label>
+              <input type="text" id="servicioTitulo" required placeholder="Ej: Movimiento de Tierras y Excavaciones" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 uppercase mb-1">Línea / Identificador *</label>
+                <input type="text" id="servicioLinea" required placeholder="Ej: Línea 05" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 uppercase mb-1">Texto Botón (CTA)</label>
+                <input type="text" id="servicioCta" placeholder="Ej: Cotizar Servicio" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 uppercase mb-1">Descripción Técnica / Alcance *</label>
+              <textarea id="servicioDescripcion" rows="3" required placeholder="Detalle las capacidades técnicas, equipos o normativas de este servicio..." class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none focus:border-[#FF6412]"></textarea>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 uppercase mb-1">Fotografía del Servicio *</label>
+              <input type="file" id="servicioArchivo" accept="image/*" class="w-full px-3 py-2 bg-[#F8F9FA] border border-[#DEE2E6] focus:outline-none" />
+              <span class="text-[11px] text-slate-500 mt-1 block">Puedes subir una foto del servicio o se asignará una estándar.</span>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-[#FF6412] hover:bg-[#E0520A] text-white font-bold uppercase tracking-wider transition-colors shadow-sm">
+              + Publicar Servicio en el Sitio
+            </button>
+          </form>
+        </div>
+
+        <!-- Lista de Servicios Publicados Actualmente -->
+        <div class="lg:col-span-7 bg-white border border-[#DEE2E6] p-6 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-3 flex flex-wrap justify-between items-center gap-3">
+            <div>
+              <h2 class="text-sm font-bold text-[#1E2229] uppercase font-heading">
+                Servicios Publicados en el Sitio
+              </h2>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Líneas de servicio activas en el sitio web de Asvid.
+              </p>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <span id="badgeTotalServicios" class="px-2.5 py-1 bg-[#FF6412]/10 text-[#FF6412] font-bold text-xs rounded">
+                0 Servicios
+              </span>
+              <button type="button" onclick="enfocarNuevoServicio()" class="px-3 py-1.5 bg-[#FF6412] hover:bg-[#E0520A] text-white font-bold text-xs uppercase tracking-wider rounded transition-colors flex items-center gap-1.5 shadow-xs">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                <span>+ Agregar Servicio</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="listaServiciosAdmin" class="space-y-4"></div>
         </div>
 
       </div>
@@ -377,6 +471,40 @@
         activo: false,
         texto: 'Atención en terreno activa en Concón, Viña del Mar y Quintero. Recepción de EETT para cubicación inmediata.'
       },
+      servicios: [
+        {
+          id: 'srv-1',
+          linea: 'Línea 01',
+          titulo: 'Obras Civiles & Cálculo Estructural',
+          descripcion: 'Fundaciones masivas, memoria de cálculo de ingeniería, losas de hormigón armado, muros de contención estructural y zapatas.',
+          cta: 'Cotizar Obra Civil',
+          foto: 'assets/obras_civiles.webp'
+        },
+        {
+          id: 'srv-2',
+          linea: 'Línea 02',
+          titulo: 'Obras y Montajes Industriales',
+          descripcion: 'Fabricación en maestranza, montaje de galpones y naves en perfiles A37/A52, cubiertas aisladas y pintura intumescente.',
+          cta: 'Cotizar Galpón',
+          foto: 'assets/galpones_montaje.webp'
+        },
+        {
+          id: 'srv-3',
+          linea: 'Línea 03',
+          titulo: 'Pavimentación & Radieres',
+          descripcion: 'Radieres industriales afinados con helicóptero mecánico, adición de fibra metálica, corte de juntas y calzadas de hormigón.',
+          cta: 'Cotizar Pavimento',
+          foto: 'assets/pavimentacion_radier.webp'
+        },
+        {
+          id: 'srv-4',
+          linea: 'Línea 04',
+          titulo: 'Mantenimiento de Plantas',
+          descripcion: 'Paradas de planta, refuerzo estructural en fibra o acero, canalizaciones subterráneas, zanjas y contratos de mantención técnica.',
+          cta: 'Cotizar Mantención',
+          foto: 'assets/maquinaria_movimiento.webp'
+        }
+      ],
       obras: [
         {
           id: 'obra-1',
@@ -411,7 +539,16 @@
     function obtenerData() {
       try {
         const guardado = localStorage.getItem(STORAGE_KEY);
-        if (guardado) return JSON.parse(guardado);
+        if (guardado) {
+          const parsed = JSON.parse(guardado);
+          if (!parsed.servicios || !Array.isArray(parsed.servicios)) {
+            parsed.servicios = JSON.parse(JSON.stringify(DEFAULT_DATA.servicios));
+          }
+          if (!parsed.obras || !Array.isArray(parsed.obras)) {
+            parsed.obras = JSON.parse(JSON.stringify(DEFAULT_DATA.obras));
+          }
+          return parsed;
+        }
       } catch (e) {
         console.warn(e);
       }
@@ -422,6 +559,7 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       cargarDatosEnFormularios();
       renderizarListaObrasAdmin();
+      renderizarListaServiciosAdmin();
     }
 
     function obtenerClaveValida() {
@@ -458,6 +596,7 @@
       document.getElementById('vista-dashboard').classList.remove('hidden');
       cargarDatosEnFormularios();
       renderizarListaObrasAdmin();
+      renderizarListaServiciosAdmin();
     }
 
     // Manejo de Pestañas
@@ -468,29 +607,65 @@
       });
       document.querySelectorAll('.seccion-contenido').forEach(sec => sec.classList.add('hidden'));
 
-      document.getElementById('tab-' + nombre).classList.add('text-[#FF6412]', 'border-[#FF6412]');
-      document.getElementById('tab-' + nombre).classList.remove('text-slate-500', 'border-transparent');
-      document.getElementById('seccion-' + nombre).classList.remove('hidden');
+      const tabActivo = document.getElementById('tab-' + nombre);
+      const seccionActiva = document.getElementById('seccion-' + nombre);
+      if (tabActivo) {
+        tabActivo.classList.add('text-[#FF6412]', 'border-[#FF6412]');
+        tabActivo.classList.remove('text-slate-500', 'border-transparent');
+      }
+      if (seccionActiva) {
+        seccionActiva.classList.remove('hidden');
+      }
+    }
+
+    // Accesos directos para enfocar formularios
+    function enfocarNuevaObra() {
+      cambiarPestana('obras');
+      const input = document.getElementById('obraTitulo');
+      if (input) {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          input.focus();
+          input.classList.add('ring-2', 'ring-[#FF6412]');
+          setTimeout(() => input.classList.remove('ring-2', 'ring-[#FF6412]'), 1400);
+        }, 300);
+      }
+    }
+
+    function enfocarNuevoServicio() {
+      cambiarPestana('servicios');
+      const input = document.getElementById('servicioTitulo');
+      if (input) {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          input.focus();
+          input.classList.add('ring-2', 'ring-[#FF6412]');
+          setTimeout(() => input.classList.remove('ring-2', 'ring-[#FF6412]'), 1400);
+        }, 300);
+      }
     }
 
     // Renderizar Obras
     function renderizarListaObrasAdmin() {
       const data = obtenerData();
       const container = document.getElementById('listaObrasAdmin');
-      document.getElementById('badgeTotalObras').innerText = `${data.obras.length} Obras`;
+      if (!container) return;
+      const obras = data.obras || [];
+      const badge = document.getElementById('badgeTotalObras');
+      if (badge) badge.innerText = `${obras.length} Obras`;
 
-      if (data.obras.length === 0) {
+      if (obras.length === 0) {
         container.innerHTML = '<p class="text-xs text-slate-400 py-4 text-center">No hay obras registradas. Publica una nueva en el formulario izquierdo.</p>';
         return;
       }
 
-      container.innerHTML = data.obras.map(obra => `
+      container.innerHTML = obras.map(obra => `
         <div class="flex items-center justify-between gap-4 p-4 border border-[#DEE2E6] bg-[#F8F9FA] rounded">
-          <img src="${obra.foto}" class="w-16 h-14 object-cover border border-[#DEE2E6] shrink-0" />
+          <img src="${obra.foto}" class="w-16 h-14 object-cover border border-[#DEE2E6] shrink-0" onerror="this.src='assets/obras_civiles.webp'" />
           <div class="flex-1 min-w-0">
             <span class="text-[10px] font-bold text-[#FF6412] uppercase block">${obra.categoria}</span>
             <strong class="text-xs text-slate-900 block truncate">${obra.titulo}</strong>
-            <span class="text-[11px] text-slate-500 block">${obra.ubicacion} · ${obra.superficie}</span>
+            <span class="text-[11px] text-slate-500 block truncate">${obra.ubicacion} · ${obra.superficie}</span>
           </div>
           <button onclick="eliminarObra('${obra.id}')" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded transition-colors shrink-0">
             Eliminar
@@ -511,6 +686,7 @@
 
       function proceder(fotoUrl) {
         const data = obtenerData();
+        if (!data.obras) data.obras = [];
         const nueva = {
           id: 'obra-' + Date.now(),
           titulo,
@@ -518,7 +694,7 @@
           ubicacion,
           superficie,
           alcance,
-          foto: fotoUrl || 'assets/obras_civiles.jpg'
+          foto: fotoUrl || 'assets/obras_civiles.webp'
         };
         data.obras.unshift(nueva);
         guardarData(data);
@@ -531,14 +707,86 @@
         reader.onload = (evt) => proceder(evt.target.result);
         reader.readAsDataURL(fileInput.files[0]);
       } else {
-        proceder('assets/obras_civiles.jpg');
+        proceder('assets/obras_civiles.webp');
       }
     }
 
     function eliminarObra(id) {
       if (confirm('¿Desea eliminar esta obra del sitio web público?')) {
         const data = obtenerData();
-        data.obras = data.obras.filter(o => o.id !== id);
+        data.obras = (data.obras || []).filter(o => o.id !== id);
+        guardarData(data);
+      }
+    }
+
+    // Renderizar Servicios
+    function renderizarListaServiciosAdmin() {
+      const data = obtenerData();
+      const container = document.getElementById('listaServiciosAdmin');
+      if (!container) return;
+      const servicios = data.servicios || [];
+      const badge = document.getElementById('badgeTotalServicios');
+      if (badge) badge.innerText = `${servicios.length} Servicios`;
+
+      if (servicios.length === 0) {
+        container.innerHTML = '<p class="text-xs text-slate-400 py-4 text-center">No hay servicios registrados. Publica uno nuevo en el formulario izquierdo.</p>';
+        return;
+      }
+
+      container.innerHTML = servicios.map(srv => `
+        <div class="flex items-center justify-between gap-4 p-4 border border-[#DEE2E6] bg-[#F8F9FA] rounded">
+          <img src="${srv.foto}" class="w-16 h-14 object-cover border border-[#DEE2E6] shrink-0" onerror="this.src='assets/obras_civiles.webp'" />
+          <div class="flex-1 min-w-0">
+            <span class="text-[10px] font-bold text-[#FF6412] uppercase block">${srv.linea || 'Especialidad'}</span>
+            <strong class="text-xs text-slate-900 block truncate">${srv.titulo}</strong>
+            <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">${srv.descripcion}</p>
+          </div>
+          <button onclick="eliminarServicio('${srv.id}')" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded transition-colors shrink-0">
+            Eliminar
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Guardar Nuevo Servicio
+    function guardarNuevoServicio(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('servicioTitulo').value.trim();
+      const linea = document.getElementById('servicioLinea').value.trim();
+      const cta = document.getElementById('servicioCta').value.trim() || 'Cotizar Servicio';
+      const descripcion = document.getElementById('servicioDescripcion').value.trim();
+      const fileInput = document.getElementById('servicioArchivo');
+
+      function proceder(fotoUrl) {
+        const data = obtenerData();
+        if (!data.servicios) data.servicios = [];
+        const nuevo = {
+          id: 'srv-' + Date.now(),
+          titulo,
+          linea,
+          cta,
+          descripcion,
+          foto: fotoUrl || 'assets/obras_civiles.webp'
+        };
+        data.servicios.push(nuevo);
+        guardarData(data);
+        document.getElementById('formNuevoServicio').reset();
+        alert('✓ Servicio publicado exitosamente en el sitio web.');
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (evt) => proceder(evt.target.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        proceder('assets/obras_civiles.webp');
+      }
+    }
+
+    function eliminarServicio(id) {
+      if (confirm('¿Desea eliminar este servicio del sitio web público?')) {
+        const data = obtenerData();
+        data.servicios = (data.servicios || []).filter(s => s.id !== id);
         guardarData(data);
       }
     }
@@ -609,7 +857,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `respaldo_asvid_obras_${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `respaldo_asvid_${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
     }
