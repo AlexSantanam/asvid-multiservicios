@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asvid SpA — Ingeniería, Obras Civiles, Estructuras y Pavimentación Industrial</title>
+  <title>Asvid SpA · Obras Civiles y Estructuras Industriales</title>
   <meta name="description" content="Constructora de ingeniería aplicada Asvid SpA (RUT 77.391.792-2) en Concón, Viña del Mar y Valparaíso. Especialistas en obras civiles masivas, cálculo estructural, galpones y radieres de alto tráfico." />
   <meta name="keywords" content="constructora viña del mar, obras civiles valparaiso, constructora concon, ingenieria y construccion quinta region, galpones industriales valparaiso, radier industrial alto trafico, movimiento de tierras concon, maestranza de acero chile, asvid spa, grupo asvid" />
   <meta name="author" content="Ingeniería y Construcción Asvid SpA" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://grupoasvid.cl/" />
+
+  <!-- Preload Hero LCP Responsive WebP -->
+  <link rel="preload" as="image" type="image/webp" href="assets/hero-civil-engineering.webp" media="(min-width: 769px)" fetchpriority="high" />
+  <link rel="preload" as="image" type="image/webp" href="assets/hero-civil-engineering-mobile.webp" media="(max-width: 768px)" fetchpriority="high" />
 
   <!-- Geotargeting SEO Local Chile / Región de Valparaíso -->
   <meta name="geo.region" content="CL-VS" />
@@ -414,11 +418,15 @@
   <!-- HERO SECTION CON PALETA ASVID (GRAFITO + NARANJA + FOTO REAL VISIBLE) -->
   <section class="relative bg-[#14171C] text-white py-24 lg:py-32 overflow-hidden">
     
-    <!-- Imagen de Fondo Real de Ingeniería Civil Claramente Visible -->
+    <!-- Imagen de Fondo Real de Ingeniería Civil Claramente Visible Responsive WebP -->
     <div class="absolute inset-0 z-0">
-      <img src="assets/hero-civil-engineering.jpg" alt="Ingeniería y Construcción Asvid" class="w-full h-full object-cover object-center opacity-85" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="assets/hero-civil-engineering-mobile.webp" type="image/webp" />
+        <source srcset="assets/hero-civil-engineering.webp" type="image/webp" />
+        <img src="assets/hero-civil-engineering.webp" alt="Ingeniería y Construcción Asvid" fetchpriority="high" class="w-full h-full object-cover object-center opacity-85" />
+      </picture>
       <!-- Filtro translúcido en Gris Grafito AsviD: oscuro a la izquierda para texto, transparente al centro -->
-      <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(20, 23, 28, 0.88) 0%, rgba(30, 34, 41, 0.65) 48%, rgba(20, 23, 28, 0.22) 100%);"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(20, 23, 28, 0.90) 0%, rgba(30, 34, 41, 0.70) 50%, rgba(20, 23, 28, 0.35) 100%);"></div>
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -443,6 +451,26 @@
           <a href="#contacto" class="px-7 py-3.5 bg-[#1E2229]/80 hover:bg-[#1E2229] border border-white/30 text-white font-bold text-xs uppercase tracking-widest transition-all backdrop-blur-xs">
             Contáctenos
           </a>
+        </div>
+
+        <!-- Trust Badges Inmediatos sobre el pliegue (Audit High Impact CRO) -->
+        <div class="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-300 text-xs">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#FF6412] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            <span><strong>Mandantes:</strong> TPS · EPV · ENAP</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#FF6412] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span><strong>Norma:</strong> NCh 433 · AWS D1.1</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#FF6412] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span><strong>Seguridad:</strong> Mutual CChC / APR</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#FF6412] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span><strong>Respuesta:</strong> Visita Técnica &le; 24h</span>
+          </div>
         </div>
 
       </div>
@@ -752,7 +780,7 @@
         <!-- Fotografía Institucional -->
         <div class="lg:col-span-5">
           <div class="border border-[#E2E4E8] p-2 bg-[#F4F5F7]">
-            <img src="assets/obras_civiles.jpg" alt="Faena Asvid" class="w-full h-80 object-cover" />
+            <img src="assets/obras_civiles.webp" alt="Faena Asvid" loading="lazy" class="w-full h-80 object-cover" />
             <div class="py-3 px-2 text-[12px] text-slate-600 flex justify-between items-center">
               <span>Supervisión de obras civiles y fundaciones</span>
               <span class="font-bold text-[#FF6412]">Concón, Chile</span>
@@ -783,7 +811,7 @@
         <!-- Servicio 1: Obras Civiles -->
         <div class="bg-white border border-[#E2E4E8] flex flex-col justify-between hover:border-[#FF6412] transition-colors">
           <div>
-            <img src="assets/obras_civiles.jpg" alt="Obras Civiles" class="w-full h-44 object-cover" />
+            <img src="assets/obras_civiles.webp" alt="Obras Civiles" loading="lazy" class="w-full h-44 object-cover" />
             <div class="p-5 space-y-2">
               <span class="text-[10px] font-bold text-[#FF6412] uppercase tracking-wider block">Línea 01</span>
               <h3 class="text-base font-bold text-[#1E2229] font-heading">
@@ -805,7 +833,7 @@
         <!-- Servicio 2: Montajes Industriales -->
         <div class="bg-white border border-[#E2E4E8] flex flex-col justify-between hover:border-[#FF6412] transition-colors">
           <div>
-            <img src="assets/galpones_montaje.jpg" alt="Estructuras Metálicas" class="w-full h-44 object-cover" />
+            <img src="assets/galpones_montaje.webp" alt="Estructuras Metálicas" loading="lazy" class="w-full h-44 object-cover" />
             <div class="p-5 space-y-2">
               <span class="text-[10px] font-bold text-[#FF6412] uppercase tracking-wider block">Línea 02</span>
               <h3 class="text-base font-bold text-[#1E2229] font-heading">
@@ -827,7 +855,7 @@
         <!-- Servicio 3: Pavimentación -->
         <div class="bg-white border border-[#E2E4E8] flex flex-col justify-between hover:border-[#FF6412] transition-colors">
           <div>
-            <img src="assets/pavimentacion_radier.jpg" alt="Pavimentación" class="w-full h-44 object-cover" />
+            <img src="assets/pavimentacion_radier.webp" alt="Pavimentación" loading="lazy" class="w-full h-44 object-cover" />
             <div class="p-5 space-y-2">
               <span class="text-[10px] font-bold text-[#FF6412] uppercase tracking-wider block">Línea 03</span>
               <h3 class="text-base font-bold text-[#1E2229] font-heading">
@@ -849,7 +877,7 @@
         <!-- Servicio 4: Mantenimiento -->
         <div class="bg-white border border-[#E2E4E8] flex flex-col justify-between hover:border-[#FF6412] transition-colors">
           <div>
-            <img src="assets/maquinaria_movimiento.jpg" alt="Mantenimiento Industrial" class="w-full h-44 object-cover" />
+            <img src="assets/maquinaria_movimiento.webp" alt="Mantenimiento Industrial" loading="lazy" class="w-full h-44 object-cover" />
             <div class="p-5 space-y-2">
               <span class="text-[10px] font-bold text-[#FF6412] uppercase tracking-wider block">Línea 04</span>
               <h3 class="text-base font-bold text-[#1E2229] font-heading">
@@ -943,7 +971,7 @@
         
         <!-- Obra 1 -->
         <div class="bg-white border border-[#E2E4E8]">
-          <img src="assets/galpones_montaje.jpg" alt="Galpón Industrial Concón" class="w-full h-52 object-cover" />
+          <img src="assets/galpones_montaje.webp" alt="Galpón Industrial Concón" loading="lazy" class="w-full h-52 object-cover" />
           <div class="p-6 space-y-3">
             <span class="text-[11px] font-bold text-[#FF6412] uppercase tracking-wider block">Montaje Estructural</span>
             <h3 class="text-base font-bold text-[#1E2229] font-heading">Nave Industrial y Centro Logístico</h3>
@@ -958,7 +986,7 @@
 
         <!-- Obra 2 -->
         <div class="bg-white border border-[#E2E4E8]">
-          <img src="assets/pavimentacion_radier.jpg" alt="Radier Industrial El Salto" class="w-full h-52 object-cover" />
+          <img src="assets/pavimentacion_radier.webp" alt="Radier Industrial El Salto" loading="lazy" class="w-full h-52 object-cover" />
           <div class="p-6 space-y-3">
             <span class="text-[11px] font-bold text-[#FF6412] uppercase tracking-wider block">Pavimentación</span>
             <h3 class="text-base font-bold text-[#1E2229] font-heading">Radier Industrial Alto Tráfico</h3>
@@ -973,7 +1001,7 @@
 
         <!-- Obra 3 -->
         <div class="bg-white border border-[#E2E4E8]">
-          <img src="assets/obras_civiles.jpg" alt="Muro de Contención Valparaíso" class="w-full h-52 object-cover" />
+          <img src="assets/obras_civiles.webp" alt="Muro de Contención Valparaíso" loading="lazy" class="w-full h-52 object-cover" />
           <div class="p-6 space-y-3">
             <span class="text-[11px] font-bold text-[#FF6412] uppercase tracking-wider block">Obras Civiles</span>
             <h3 class="text-base font-bold text-[#1E2229] font-heading">Muro de Contención Estructural</h3>
